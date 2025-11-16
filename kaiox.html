@@ -1,0 +1,2299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoFábrica Consciente - A Jornada do Aprendiz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           VIRTUAL FILE: /css/core/_variables.css
+           DESCRIÇÃO: Define todos os tokens de design (cores, fontes, etc.)
+           ========================================================================== */
+        :root {
+            /* PROFESSOR SABIÁ: 
+                Variáveis CSS (ou "Custom Properties") são nosso "painel de controle" de design.
+                Se quisermos mudar o verde principal do site, mudamos APENAS aqui
+                em '--color-primary' e... pronto! Mágica, não?
+            */
+            
+            /* Paleta de Cores Principal */
+            --color-primary-dark: #225c51;
+            --color-primary: #2c786c;
+            --color-primary-light: #4a7c59;
+            --color-primary-extralight: #e8f5e9; /* Verde bem claro para fundos */
+
+            /* Paleta de Feedback */
+            --color-success: #4caf50;
+            --color-warning: #ff9800;
+            --color-danger: #f44336;
+            --color-info: #2196f3;
+
+            /* Paleta Neutra (Texto e Fundos) */
+            --color-text-primary: #212121;
+            --color-text-secondary: #5f6368;
+            --color-text-light: #ffffff;
+            --color-border: #e0e0e0;
+            --color-disabled: #bdbdbd;
+            --color-background-main: #f4f7f6; /* Fundo principal da página */
+            --color-background-container: #ffffff; /* Fundo dos "cards" */
+            --color-background-modal: rgba(0, 0, 0, 0.6);
+            --color-background-mentor: #fffbeb; /* Fundo da caixa do Professor Sabiá */
+
+            /* Tipografia */
+            --font-family-body: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family-heading: 'Poppins', sans-serif;
+            --font-size-base: 16px;
+            --line-height-base: 1.6;
+
+            /* Outras Variáveis */
+            --border-radius-small: 4px;
+            --border-radius-medium: 8px;
+            --border-radius-large: 12px;
+            --shadow-light: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-medium: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-heavy: 0 8px 24px rgba(0,0,0,0.15);
+            --transition-speed: 0.2s ease-in-out;
+        }
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/core/_reset.css
+           DESCRIÇÃO: Normaliza os estilos padrões do navegador.
+           ========================================================================== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box; 
+            /* PROFESSOR SABIÁ: 
+                'box-sizing: border-box' é OBRIGATÓRIO hoje em dia.
+                Ele faz com que o 'padding' e a 'border' sejam incluídos
+                na largura (width) e altura (height) total do elemento.
+                Isso torna os cálculos de layout MIL VEZES mais fáceis.
+            */
+        }
+        
+        html {
+            font-size: var(--font-size-base);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family-body);
+            line-height: var(--line-height-base);
+            color: var(--color-text-primary);
+            background-color: var(--color-background-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/core/_typography.css
+           DESCRIÇÃO: Estilos base de texto
+           ========================================================================== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-family-heading);
+            color: var(--color-primary-dark);
+            margin: 0 0 0.75em 0;
+            line-height: 1.2;
+        }
+        h1 { font-size: 2.25rem; }
+        h2 { font-size: 1.75rem; color: var(--color-primary); }
+        h3 { font-size: 1.25rem; color: var(--color-primary-light); }
+        h4 { 
+            font-size: 1.1rem; 
+            color: var(--color-text-primary);
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 8px;
+            margin-top: 24px;
+            text-align: left;
+        }
+        
+        p { margin: 0 0 1em 0; }
+        a { color: var(--color-primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        small { font-size: 0.85em; color: var(--color-text-secondary); }
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/layout/_main.css
+           DESCRIÇÃO: Estilos principais de layout (container, grid, etc.)
+           ========================================================================== */
+        
+        /* Layout Principal do Jogo */
+        .l-game-wrapper {
+            background-color: var(--color-background-container);
+            padding: 25px 30px;
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-medium);
+            width: 100%;
+            max-width: 1100px;
+            position: relative;
+            border-top: 5px solid var(--color-primary);
+        }
+
+        /* Layout das colunas de Ações e P&D */
+        .l-columns {
+            display: grid;
+            /* PROFESSOR SABIÁ: 
+                'grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))'
+                Isso é CSS Grid moderno! Significa: crie colunas que
+                tenham NO MÍNIMO 300px. Se couber mais de uma (auto-fit),
+                distribua o espaço restante igualmente (1fr).
+                Isso é responsividade automática!
+            */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .l-credits-footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 0.8em;
+            color: var(--color-text-secondary);
+        }
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/components/_button.css
+           DESCRIÇÃO: Estilos para TODOS os botões (Sistema de Design)
+           ========================================================================== */
+        /* COMENTÁRIO DO ENGENHEIRO:
+            Usando uma abordagem BEM-like (Block__Element--Modifier)
+            .c-btn  (Block)
+            .c-btn--primary (Modifier)
+            .c-btn--full-width (Modifier)
+        */
+        .c-btn {
+            font-family: var(--font-family-body);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--color-text-light);
+            background-color: var(--color-primary-light);
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: var(--border-radius-medium);
+            cursor: pointer;
+            text-align: center;
+            transition: all var(--transition-speed);
+            display: inline-block;
+        }
+
+        .c-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .c-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .c-btn:disabled {
+            background-color: var(--color-disabled) !important;
+            color: var(--color-text-secondary);
+            cursor: not-allowed;
+            opacity: 0.7;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Modificadores de Cor */
+        .c-btn--start { background-color: var(--color-success); }
+        .c-btn--next-month { background-color: var(--color-warning); color: var(--color-text-primary); }
+        .c-btn--decision { background-color: var(--color-info); }
+        .c-btn--research { background-color: #673ab7; } /* Roxo para P&D */
+        .c-btn--event { background-color: var(--color-primary-dark); }
+        .c-btn--profile { background-color: var(--color-primary-light); }
+        .c-btn--profile.is-selected {
+            background-color: var(--color-primary-dark);
+            transform: scale(1.03);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Modificadores de Layout */
+        .c-btn--full-width {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
+        
+        .c-btn--action {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            text-align: left;
+            padding-left: 15px;
+        }
+        .c-btn--action small {
+            display: block;
+            font-weight: 400;
+            opacity: 0.9;
+            color: var(--color-text-light);
+        }
+        .c-btn--action .cost { color: var(--color-warning); font-weight: 700; }
+        .c-btn--action .rp { color: #d1c4e9; font-weight: 700; } /* Roxo claro */
+        
+        .c-btn--audio-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 45px;
+            height: 45px;
+            font-size: 1.5em;
+            padding: 0;
+            line-height: 1;
+            border-radius: 50%;
+            background-color: var(--color-primary-light);
+            z-index: 10;
+        }
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/components/_stats-grid.css
+           DESCRIÇÃO: O painel principal de estatísticas do jogo
+           ========================================================================== */
+        .c-stats-grid {
+            display: grid;
+            /* PROFESSOR SABIÁ: 
+                'minmax(180px, 1fr)' é ótimo!
+                Estamos dizendo: "Cada item deve ter no mínimo 180px,
+                mas se houver espaço sobrando (1fr), pode crescer para preenchê-lo."
+                Novamente, CSS Grid fazendo mágica na responsividade.
+            */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: var(--color-primary-extralight);
+            border-radius: var(--border-radius-medium);
+        }
+
+        .c-stats-grid__item {
+            padding: 12px;
+            background-color: var(--color-background-container);
+            border-radius: var(--border-radius-small);
+            font-size: 0.95em;
+            border: 1px solid var(--color-border);
+            text-align: left;
+            box-shadow: var(--shadow-light);
+        }
+
+        .c-stats-grid__label {
+            display: block;
+            font-size: 0.85em;
+            color: var(--color-text-secondary);
+            margin-bottom: 4px;
+        }
+        
+        .c-stats-grid__value {
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            font-size: 1.25em;
+        }
+
+        /* Modificadores de cor para valores específicos */
+        .c-stats-grid__value--budget { color: var(--color-success); }
+        .c-stats-grid__value--waste { color: var(--color-danger); }
+        .c-stats-grid__value--morale { color: var(--color-info); }
+        .c-stats-grid__value--reputation { color: var(--color-primary-light); }
+
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/components/_log.css
+           DESCRIÇÃO: O log de eventos do jogo
+           ========================================================================== */
+        .c-game-log {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-medium);
+            text-align: left;
+            height: 200px; /* Altura aumentada */
+            overflow-y: auto;
+            font-size: 0.9em;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .c-game-log__entry {
+            margin: 0 0 8px 0;
+            padding: 8px;
+            border-bottom: 1px dashed var(--color-border);
+        }
+        .c-game-log__entry:first-child { 
+            animation: fadeIn 0.5s ease;
+        }
+        .c-game-log__entry:last-child { 
+            border-bottom: none; 
+        }
+
+        /* Modificadores de tipo de log */
+        .c-game-log__entry--good { color: var(--color-success); }
+        .c-game-log__entry--bad { color: var(--color-danger); }
+        .c-game-log__entry--neutral { color: var(--color-info); }
+        .c-game-log__entry--sabia { 
+            font-style: italic; 
+            color: var(--color-primary-dark);
+            background-color: var(--color-primary-extralight);
+            border-radius: var(--border-radius-small);
+        }
+        .c-game-log__entry--sabia strong { color: var(--color-primary); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/components/_forms.css
+           DESCRIÇÃO: Estilos para inputs e labels
+           ========================================================================== */
+        .c-form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .c-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--color-primary-light);
+            font-size: 1.1em;
+        }
+
+        .c-form-group input[type="text"] {
+            padding: 12px;
+            width: 100%;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-medium);
+            font-size: 1rem;
+            transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+        }
+        
+        .c-form-group input[type="text"]:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-extralight);
+        }
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/components/_modal.css
+           DESCRIÇÃO: Estilos para pop-ups (Relatório, Eventos, Professor)
+           ========================================================================== */
+        .c-modal {
+            display: none; /* Controlado por JS */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: var(--color-background-modal);
+            animation: fadeIn 0.3s;
+        }
+
+        .c-modal__content {
+            background-color: var(--color-background-container);
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid var(--color-border);
+            width: 90%;
+            max-width: 700px;
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-heavy);
+            position: relative;
+            animation: slideIn 0.4s;
+        }
+
+        .c-modal__close-btn {
+            color: var(--color-text-secondary);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color var(--transition-speed);
+        }
+        .c-modal__close-btn:hover,
+        .c-modal__close-btn:focus {
+            color: var(--color-text-primary);
+            text-decoration: none;
+            outline: none;
+        }
+        
+        /* Modificador para o modal do Professor */
+        .c-modal__content--sabia {
+            border-top: 5px solid var(--color-warning);
+        }
+        
+        .c-modal__content--sabia h2 {
+            color: var(--color-warning);
+        }
+        
+        .c-modal__content--event {
+            border-top: 5px solid var(--color-danger);
+        }
+        
+        .c-modal__content--event h2 {
+            color: var(--color-danger);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/components/_chart.css
+           DESCRIÇÃO: Estilos para o gráfico de barras do relatório
+           ========================================================================== */
+        .c-chart-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 250px;
+            border-bottom: 2px solid var(--color-text-primary);
+            padding: 10px;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+        
+        .c-chart-bar-wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 0 5px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .c-chart-bar {
+            width: 100%;
+            max-width: 40px; /* Largura máxima da barra */
+            text-align: center;
+            color: var(--color-text-light);
+            font-size: 0.9em;
+            position: relative;
+            transition: height 0.5s ease-out;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 5px;
+            box-sizing: border-box;
+            border-radius: var(--border-radius-small) var(--border-radius-small) 0 0;
+        }
+
+        .c-chart-bar__value {
+            font-weight: bold;
+            background: rgba(0,0,0,0.2);
+            padding: 1px 3px;
+            border-radius: var(--border-radius-small);
+        }
+
+        .c-chart-bar__label {
+            margin-top: 8px;
+            color: var(--color-text-primary);
+            font-size: 0.85em;
+            font-weight: 700;
+        }
+
+        .c-chart-bar--budget { background-color: var(--color-success); }
+        .c-chart-bar--sustainability { background-color: var(--color-primary); }
+        .c-chart-bar--waste { background-color: var(--color-danger); }
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/components/_professor-sabia.css
+           DESCRIÇÃO: Estilos para a UI do Professor Sabiá
+           ========================================================================== */
+        .c-sabia-mentor {
+            padding: 15px;
+            margin-top: 20px;
+            background-color: var(--color-background-mentor);
+            border: 1px solid var(--color-warning);
+            border-radius: var(--border-radius-medium);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: var(--shadow-light);
+        }
+
+        .c-sabia-mentor__icon {
+            font-size: 2.5em;
+            flex-shrink: 0;
+        }
+
+        .c-sabia-mentor__content h4 {
+            margin: 0 0 5px 0;
+            color: var(--color-warning);
+            border-bottom: none;
+            font-size: 1.1em;
+        }
+
+        .c-sabia-mentor__content p {
+            margin: 0;
+            font-size: 0.95em;
+            color: var(--color-text-secondary);
+        }
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/layout/_responsive.css
+           DESCRIÇÃO: Media Queries para responsividade
+           ========================================================================== */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .l-game-wrapper { padding: 15px; }
+            
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+
+            .l-columns {
+                grid-template-columns: 1fr; /* Força uma coluna única */
+            }
+
+            .c-stats-grid {
+                grid-template-columns: 1fr 1fr; /* Força duas colunas */
+            }
+
+            .c-modal__content {
+                width: 95%;
+                margin: 15% auto;
+                padding: 20px;
+            }
+
+            .c-sabia-mentor {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .c-stats-grid {
+                grid-template-columns: 1fr; /* Força uma coluna única em telas muito pequenas */
+            }
+            .c-chart-bar__value { font-size: 0.7em; }
+            .c-chart-bar__label { font-size: 0.7em; }
+        }
+
+        /* ==========================================================================
+           VIRTUAL FILE: /css/utils/_helpers.css
+           DESCRIÇÃO: Classes utilitárias (ex: esconder/mostrar)
+           ========================================================================== */
+        .u-hidden {
+            display: none !important;
+        }
+        
+        .u-text-danger { color: var(--color-danger); }
+        .u-text-success { color: var(--color-success); }
+        .u-text-center { text-align: center; }
+
+    </style>
+</head>
+<body>
+    <audio id="background-music" src="https://www.chosic.com/wp-content/uploads/2021/04/And-So-It-Begins-Inspired-By-Crush-Sometimes.mp3" loop></audio>
+
+    <main class="l-game-wrapper">
+        <header class="l-game-header">
+            <button id="music-toggle" class="c-btn c-btn--audio-toggle" aria-label="Ativar ou desativar música">🎵</button>
+            <h1 class="u-text-center">EcoFábrica Consciente</h1>
+            <h2 id="game-header" class="u-text-center">A Jornada do Aprendiz</h2>
+        </header>
+        
+        <section id="start-screen">
+            <div class="c-form-group">
+                <label for="player-name-input">Nome do(a) Jovem Gestor(a):</label>
+                <input type="text" id="player-name-input" placeholder="Digite seu nome aqui">
+            </div>
+            
+            <div id="profile-selection">
+                <h4>Escolha seu Perfil de Gestão:</h4>
+                <button class="c-btn c-btn--profile c-btn--full-width" data-profile="visionario">
+                    <strong>🌎 Visionário Verde</strong>
+                    <small>Meta: Maximizar Sustentabilidade (100) e Reputação (90).</small>
+                </button>
+                <button class="c-btn c-btn--profile c-btn--full-width" data-profile="capitalista">
+                    <strong>💰 Capitalista Consciente</strong>
+                    <small>Meta: Maximizar o Lucro (R$ 5000) e Sustentabilidade (60).</small>
+                </button>
+                <button class="c-btn c-btn--profile c-btn--full-width" data-profile="lider">
+                    <strong>👨‍👩‍👧‍👦 Líder Comunitário</strong>
+                    <small>Meta: Maximizar a Moral da Equipe (100) e Reputação (95).</small>
+                </button>
+            </div>
+            <button id="start-button" class="c-btn c-btn--start c-btn--full-width" disabled>Aceitar o Desafio e Iniciar Gestão!</button>
+        </section>
+
+        <section id="game-screen" class="u-hidden">
+            <div id="stats-grid" class="c-stats-grid"></div>
+
+            <aside id="sabia-mentor-ui" class="c-sabia-mentor">
+                <div class="c-sabia-mentor__icon">🦉</div>
+                <div class="c-sabia-mentor__content">
+                    <h4 id="sabia-tip-title">Dica do Professor Sabiá</h4>
+                    <p id="sabia-tip-text">Bem-vindo(a)! Preste atenção nas suas métricas. O equilíbrio é a chave!</p>
+                </div>
+            </aside>
+            
+            <div class="l-columns">
+                <div id="decisions-column">
+                    <h4>Tomada de Decisão (Ações)</h4>
+                    </div>
+                <div id="research-column">
+                    <h4>Pesquisa & Desenvolvimento (P&D)</h4>
+                    </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <button id="show-report-button" class="c-btn">Ver Relatório de Desempenho</button>
+                <button id="next-month-button" class="c-btn c-btn--next-month c-btn--full-width">Avançar para Próximo Mês</button>
+            </div>
+
+            <h4>Log de Eventos</h4>
+            <div id="game-log" class="c-game-log"></div>
+        </section>
+
+        <section id="end-screen" class="u-hidden u-text-center">
+            <h2>Fim do Ciclo de Gestão!</h2>
+            <p>Confira o desempenho final da sua ECOFÁBRICA CONSCIENTE:</p>
+            <div id="final-stats-grid" class="c-stats-grid"></div>
+            <p id="final-message" style="font-size: 1.2em; font-weight: bold;"></p>
+            <button id="restart-button" class="c-btn c-btn--start c-btn--full-width">Iniciar Nova Gestão (Recarregar)</button>
+        </section>
+
+        <footer class="l-credits-footer">
+            <p><strong>Desenvolvimento do Conceito e Jogo Base:</strong> Kaio Daniel de Souza da Costa (1º A), Lucas Raczenski Marques (2º A), Murilo Silvestre Bernardes (2º A), Marielly (2º A), Stefany (2º A), Lucas Gabriel Kruger Avelino (2º A)</p>
+            <p><strong>Re-arquitetura e Expansão (V2):</strong> Gemini, Engenheiro Sênior</p>
+            <p>C.E. PROFESSOR IVONE SOARES CASTANHARO | <strong>Professor Monitor Orientador:</strong> Felipe Oliveira TI</p>
+        </footer>
+    </main>
+
+    <div id="report-modal" class="c-modal" role="dialog" aria-modal="true" aria-labelledby="report-modal-title">
+        <div class="c-modal__content">
+            <span class="c-modal__close-btn" data-modal-id="report-modal">&times;</span>
+            <h2 id="report-modal-title">Relatório de Desempenho</h2>
+            <p>Evolução mensal das suas principais métricas:</p>
+            <div id="chart-container" class="c-chart-container">
+                </div>
+            <div style="display: flex; justify-content: space-around; margin-top: 10px; font-size: 0.9em;">
+                <span><span style="color:var(--color-success)">■</span> Orçamento</span>
+                <span><span style="color:var(--color-primary)">■</span> Sustentabilidade</span>
+                <span><span style="color:var(--color-danger)">■</span> Desperdício</span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="event-modal" class="c-modal" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
+        <div class="c-modal__content c-modal__content--event">
+            <span class="c-modal__close-btn u-hidden">&times;</span> <h2 id="event-modal-title">Acontecimento!</h2>
+            <p id="event-modal-message">Uma situação inesperada ocorreu!</p>
+            <div id="event-modal-choices">
+                </div>
+        </div>
+    </div>
+    
+    <div id="sabia-quiz-modal" class="c-modal" role="dialog" aria-modal="true" aria-labelledby="sabia-quiz-title">
+        <div class="c-modal__content c-modal__content--sabia">
+            <span class="c-modal__close-btn" data-modal-id="sabia-quiz-modal">&times;</span>
+            <h2 id="sabia-quiz-title">🦉 Pergunta do Professor Sabiá!</h2>
+            <p>Vamos testar seu conhecimento de código, jovem aprendiz!</p>
+            <p id="sabia-quiz-question" style="font-weight: 700; font-size: 1.1em;"></p>
+            <div id="sabia-quiz-choices">
+                </div>
+            <p id="sabia-quiz-feedback" style="margin-top: 15px;"></p>
+        </div>
+    </div>
+
+
+    <script>
+    /*
+    PROFESSOR SABIÁ: 
+    
+    Olá, aprendiz! Bem-vindo ao "código-fonte"!
+    
+    Tudo no JavaScript moderno começa com 'document.addEventListener("DOMContentLoaded", ...)'.
+    
+    Isso diz ao navegador: "Ei, não execute NENHUM JavaScript
+    até que todo o HTML da página esteja carregado e pronto."
+    
+    É a nossa "luz verde" para começar o jogo!
+    */
+    document.addEventListener("DOMContentLoaded", () => {
+
+        /* ==========================================================================
+           VIRTUAL FILE: /js/utils/helpers.js
+           DESCRIÇÃO: Funções utilitárias puras e reutilizáveis.
+           ========================================================================== */
+        const Helpers = {
+            /**
+             * Formata um número como moeda BRL (Real)
+             * @param {number} value - O número a ser formatado
+             * @returns {string} - Ex: "R$ 1.500,00"
+             */
+            formatCurrency: (value) => {
+                // PROFESSOR SABIÁ: 'Intl.NumberFormat' é a forma moderna e correta
+                // de formatar números (moedas, datas, etc.) em QUALQUER língua!
+                // Chega de 'toFixed(2)' e gambiarras com strings.
+                return new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                }).format(value || 0);
+            },
+
+            /**
+             * Limita um número a um intervalo (mínimo e máximo)
+             * @param {number} value - O valor
+             * @param {number} min - O limite mínimo
+             * @param {number} max - O limite máximo
+             * @returns {number}
+             */
+            clamp: (value, min, max) => {
+                // PROFESSOR SABIÁ: Uma função "clamp" (trava) é super útil em jogos
+                // para garantir que a 'Moral' não passe de 100 ou o 'Orçamento'
+                // não fique abaixo de 0 (a menos que você queira).
+                return Math.max(min, Math.min(value, max));
+            },
+            
+            /**
+             * Pega um item aleatório de um array
+             * @param {Array<any>} arr - O array
+             * @returns {any} - Um item aleatório
+             */
+            getRandomItem: (arr) => {
+                if (!arr || arr.length === 0) return null;
+                return arr[Math.floor(Math.random() * arr.length)];
+            }
+        };
+
+
+        /* ==========================================================================
+           VIRTUAL FILE: /js/config/SabiaData.js
+           DESCRIÇÃO: A "Inteligência" do Professor Sabiá.
+                      Base de conhecimento GIGANTE sobre código e o jogo.
+           ========================================================================== */
+        const SABIA_KNOWLEDGE_BASE = {
+            // Dicas contextuais sobre o JOGO
+            gameTips: [
+                { 
+                    condition: (s) => s.budget < 500,
+                    tip: "Seu orçamento está perigosamente baixo! Evite gastos grandes e foque em ações que gerem receita ou reduzam custos, como 'Otimizar Logística'." 
+                },
+                { 
+                    condition: (s) => s.waste > 60,
+                    tip: "O nível de desperdício está altíssimo! Isso gera custos e afeta sua reputação. Invista em 'Reciclagem Básica' ou 'Treinamento de Eficiência' urgente!" 
+                },
+                { 
+                    condition: (s) => s.morale < 40,
+                    tip: "A moral da equipe está em queda. Funcionários infelizes produzem menos e podem sair. Considere 'Melhorar refeitório' ou 'Capacitar Equipe'." 
+                },
+                { 
+                    condition: (s) => s.sustainability < 20,
+                    tip: "Sua operação não é nada sustentável. A fiscalização pode bater na sua porta. 'Investir em Energia Solar' é caro, mas resolve isso a longo prazo."
+                },
+                { 
+                    condition: (s) => s.researchPoints > 15,
+                    tip: "Você acumulou muitos Pontos de P&D! Não os deixe parados. Pesquise novas tecnologias para desbloquear ações mais poderosas."
+                },
+                { 
+                    condition: (s) => s.currentMonth === 1,
+                    tip: "Primeiro mês! Analise seu perfil de gestor. Se você é 'Visionário Verde', sua prioridade é Sustentabilidade, não apenas lucro." 
+                },
+                { 
+                    condition: (s) => s.currentMonth === 6,
+                    tip: "Estamos no meio do ano. É um bom momento para checar o Relatório de Desempenho e ver sua evolução. Ajuste sua estratégia!" 
+                },
+                {
+                    condition: (s) => s.currentMonth === 11,
+                    tip: "Reta final! Se você está longe da sua meta, talvez precise de uma ação de 'alto risco, alta recompensa'. Boa sorte!"
+                }
+            ],
+            
+            // Perguntas do Quiz sobre CÓDIGO (HTML, CSS, JS)
+            quizQuestions: [
+                {
+                    area: "HTML",
+                    question: "Qual tag HTML é usada para o *conteúdo principal* de uma página, ajudando na semântica e acessibilidade?",
+                    options: ["<div class='main'>", "<main>", "<content>", "<body-content>"],
+                    answer: "<main>",
+                    explanation: "<main> é a tag semântica correta. Leitores de tela usam ela para pular direto ao conteúdo principal."
+                },
+                {
+                    area: "HTML",
+                    question: "Para que serve o atributo 'for' em uma tag <label>?",
+                    options: ["Para criar um loop 'for'", "Para conectar o label a um 'id' de um <input>", "Para definir a fonte do texto", "Para uso em formulários de 'for'necedores"],
+                    answer: "Para conectar o label a um 'id' de um <input>",
+                    explanation: "O 'for' no <label> é vinculado ao 'id' do <input>, melhorando a acessibilidade e a usabilidade (clicar no label foca o input)."
+                },
+                {
+                    area: "HTML",
+                    question: "O que significa o atributo 'data-profile' que usamos nos botões de perfil?",
+                    options: ["Define o CSS do perfil", "É um atributo de dados ('data attribute') para guardar informações customizadas", "É um link para o perfil do usuário", "Não tem função, é apenas um comentário"],
+                    answer: "É um atributo de dados ('data attribute') para guardar informações customizadas",
+                    explanation: "Data attributes (começam com 'data-') são uma forma padrão de armazenar dados no HTML para serem lidos pelo JavaScript."
+                },
+                {
+                    area: "CSS",
+                    question: "O que 'box-sizing: border-box;' faz?",
+                    options: ["Coloca uma borda em todas as caixas", "Calcula o tamanho da caixa incluindo padding e border na largura/altura total", "Calcula o tamanho da caixa somando padding e border à largura/altura", "Centraliza a caixa na página"],
+                    answer: "Calcula o tamanho da caixa incluindo padding e border na largura/altura total",
+                    explanation: "Por padrão, 'width' + 'padding' + 'border' = largura real. Com 'border-box', 'width' = largura real (incluindo padding/border). Isso facilita layouts!"
+                },
+                {
+                    area: "CSS",
+                    question: "Qual a *vantagem* de usar Variáveis CSS (ex: '--color-primary')?",
+                    options: ["Deixa o CSS mais rápido", "É a única forma de usar cores", "Permite mudar um valor (ex: uma cor) em um só lugar e atualizar o site inteiro", "Funciona em navegadores antigos como o IE6"],
+                    answer: "Permite mudar um valor (ex: uma cor) em um só lugar e atualizar o site inteiro",
+                    explanation: "Variáveis centralizam seus valores de design ('tokens'). Mude a variável '--color-primary' e todos os elementos que a usam mudam instantaneamente."
+                },
+                {
+                    area: "CSS",
+                    question: "No CSS Grid, o que 'repeat(auto-fit, minmax(200px, 1fr))' significa?",
+                    options: ["Cria 200 colunas", "Repete o layout 1 vez", "Cria colunas de 200px que não crescem", "Cria o máximo de colunas que couberem, com no mínimo 200px, e distribui o espaço extra (1fr)"],
+                    answer: "Cria o máximo de colunas que couberem, com no mínimo 200px, e distribui o espaço extra (1fr)",
+                    explanation: "É uma das regras mais poderosas do CSS Grid para criar layouts responsivos automaticamente, sem precisar de media queries!"
+                },
+                {
+                    area: "JS",
+                    question: "O que o 'document.addEventListener(\"DOMContentLoaded\", ...)' faz?",
+                    options: ["Inicia o download do HTML", "Espera o DOM (HTML) estar totalmente carregado antes de rodar o JS", "Carrega as fontes do documento", "Cria um evento de clique"],
+                    answer: "Espera o DOM (HTML) estar totalmente carregado antes de rodar o JS",
+                    explanation: "Isso previne erros! Se o JS rodar antes do HTML, ele pode tentar achar um botão (ex: 'start-button') que *ainda não existe* e quebrar."
+                },
+                {
+                    area: "JS",
+                    question: "Qual a diferença entre 'let' e 'const'?",
+                    options: ["'let' é para números, 'const' é para texto", "'let' pode ter seu valor reatribuído, 'const' não pode", "'const' é mais rápido que 'let'", "Não há diferença, são a mesma coisa"],
+                    answer: "'let' pode ter seu valor reatribuído, 'const' não pode",
+                    explanation: "'const' (constante) cria uma variável que não pode ser reatribuída. 'let' cria uma variável que pode. Regra de ouro: use 'const' sempre, a menos que você *precise* mudar o valor, aí use 'let'."
+                },
+                {
+                    area: "JS",
+                    question: "Para que serve a 'Intl.NumberFormat('pt-BR', ...)' que usamos?",
+                    options: ["Para formatar números internacionais", "Para formatar números e moedas no padrão correto de uma língua (ex: R$ 1.234,56)", "Para traduzir a página", "Para calcular impostos"],
+                    answer: "Para formatar números e moedas no padrão correto de uma língua (ex: R$ 1.234,56)",
+                    explanation: "'Intl' (Internationalization) é a API nativa do JS para lidar com formatos de data, hora e números em diferentes locais do mundo."
+                },
+                {
+                    area: "JS",
+                    question: "O que é uma 'Classe' (como 'class Game' que usamos)?",
+                    options: ["Um arquivo de CSS", "Uma 'planta' ou 'molde' para criar objetos com as mesmas propriedades e métodos", "Uma função que roda sozinha", "Um tipo de comentário"],
+                    answer: "Uma 'planta' ou 'molde' para criar objetos com as mesmas propriedades e métodos",
+                    explanation: "A 'class Game' é o molde. Quando fazemos 'new Game()', criamos um *objeto* (uma 'instância') daquele molde, que já vem com 'state', 'ui', 'sabia', e os métodos 'advanceMonth()', etc."
+                },
+                {
+                    area: "JS",
+                    question: "Por que separamos o código em classes como 'Game', 'State' e 'UI'?",
+                    options: ["Porque é obrigatório pelo navegador", "Para o código ficar mais longo", "Chama-se 'Separação de Preocupações' (SoC). Cada classe tem UMA responsabilidade, facilitando a manutenção.", "Para confundir quem está lendo"],
+                    answer: "Chama-se 'Separação de Preocupações' (SoC). Cada classe tem UMA responsabilidade, facilitando a manutenção.",
+                    explanation: "A 'UI' só mexe no HTML. A 'State' só guarda dados. O 'Game' orquestra tudo. Se o layout quebrar, mexemos só na 'UI'. Se o cálculo de lucro estiver errado, mexemos só na 'State'. Isso é arquitetura sólida!"
+                }
+            ]
+        };
+
+
+        /* ==========================================================================
+           VIRTUAL FILE: /js/config/GameData.js
+           DESCRIÇÃO: A definição de TODO o conteúdo do jogo.
+                      Expandido massivamente para criar profundidade.
+           ========================================================================== */
+        const GAME_DATA = {
+            totalMonths: 12,
+            
+            // Estado inicial base
+            initialState: {
+                budget: 1500,           // 💰 Orçamento
+                production: 50,         // 🏭 Produção/mês
+                waste: 40,              // 🗑️ Desperdício/mês
+                sustainability: 20,     // 🌎 Sustentabilidade (0-100)
+                morale: 60,             // 😊 Moral Equipe (0-100)
+                reputation: 30,         // 📈 Reputação (0-100)
+                researchPoints: 5,      // 🔬 Pontos P&D
+                land: 10,               // 🌳 Área Agrícola (hectares)
+                marketPriceModifier: 1.0, // 💲 Modificador de preço
+            },
+            
+            // Nomes de exibição para as estatísticas
+            statDisplayNames: {
+                budget: "Orçamento",
+                production: "Produção/mês",
+                waste: "Desperdício/mês",
+                sustainability: "Sustentabilidade",
+                morale: "Moral da Equipe",
+                reputation: "Reputação",
+                researchPoints: "Pontos P&D",
+                land: "Área Agrícola (ha)",
+                marketPriceModifier: "Preço de Mercado"
+            },
+            
+            // Perfis de Gestão e Condições de Vitória
+            profiles: {
+                visionario: {
+                    name: "Visionário Verde 🌎",
+                    description: "Sua gestão foi um exemplo para o Paraná! Você provou que é possível prosperar cuidando do planeta.",
+                    winCondition: (s) => s.sustainability >= 100 && s.reputation >= 90,
+                    getWinMessage: (s) => `PARABÉNS! Você atingiu ${s.sustainability} de Sustentabilidade e ${s.reputation} de Reputação!`
+                },
+                capitalista: {
+                    name: "Capitalista Consciente 💰",
+                    description: "Resultados financeiros impressionantes! Você soube aliar lucro com responsabilidade.",
+                    winCondition: (s) => s.budget >= 5000 && s.sustainability >= 60,
+                    getWinMessage: (s) => `PARABÉNS! Você atingiu ${Helpers.formatCurrency(s.budget)} em caixa e ${s.sustainability} de Sustentabilidade!`
+                },
+                lider: {
+                    name: "Líder Comunitário 👨‍👩‍👧‍👦",
+                    description: "Sua fábrica é o orgulho da comunidade! Sua gestão focada em pessoas e reputação criou um ambiente exemplar.",
+                    winCondition: (s) => s.morale >= 100 && s.reputation >= 95,
+                    getWinMessage: (s) => `PARABÉNS! Você atingiu ${s.morale} de Moral e ${s.reputation} de Reputação!`
+                }
+            },
+            
+            // Árvore de Pesquisa (P&D) - Agora com Tiers e Dependências
+            researchTree: {
+                // Tier 1: Pesquisas Básicas
+                t1_basic_recycling: {
+                    id: 't1_basic_recycling',
+                    label: "P&D: Reciclagem Básica",
+                    costRP: 5,
+                    description: "Estuda métodos simples de separação e reuso de resíduos.",
+                    effects: { sustainability: 5 },
+                    unlocksActions: ['action_implement_basic_recycling'],
+                    requiredTech: []
+                },
+                t1_efficiency_studies: {
+                    id: 't1_efficiency_studies',
+                    label: "P&D: Estudos de Eficiência",
+                    costRP: 5,
+                    description: "Analisa o fluxo de trabalho para reduzir desperdício de tempo e material.",
+                    effects: { production: 5 },
+                    unlocksActions: ['action_team_training_efficiency'],
+                    requiredTech: []
+                },
+                t1_local_marketing: {
+                    id: 't1_local_marketing',
+                    label: "P&D: Marketing Comunitário",
+                    costRP: 3,
+                    description: "Entende como melhorar a imagem da fábrica na comunidade local.",
+                    effects: { reputation: 5 },
+                    unlocksActions: ['action_sponsor_local_team', 'action_community_open_day'],
+                    requiredTech: []
+                },
+                
+                // Tier 2: Pesquisas Intermediárias
+                t2_water_optimization: {
+                    id: 't2_water_optimization',
+                    label: "P&D: Otimização de Água",
+                    costRP: 10,
+                    description: "Pesquisa sobre reuso de água e sistemas de irrigação eficientes.",
+                    effects: { sustainability: 5 },
+                    unlocksActions: ['action_install_water_reuse_system'],
+                    requiredTech: ['t1_basic_recycling'] // Precisa de reciclagem básica primeiro
+                },
+                t2_green_energy: {
+                    id: 't2_green_energy',
+                    label: "P&D: Estudo de Energia Limpa",
+                    costRP: 12,
+                    description: "Analisa a viabilidade de painéis solares e outras fontes limpas.",
+                    effects: {},
+                    unlocksActions: ['action_install_solar_panels'],
+                    requiredTech: ['t1_efficiency_studies']
+                },
+                t2_hr_development: {
+                    id: 't2_hr_development',
+                    label: "P&D: Desenvolvimento de RH",
+                    costRP: 8,
+                    description: "Estuda políticas de bônus, saúde e bem-estar para a equipe.",
+                    effects: { morale: 5 },
+                    unlocksActions: ['action_profit_sharing_plan', 'action_health_plan'],
+                    requiredTech: ['t1_local_marketing']
+                },
+
+                // Tier 3: Pesquisas Avançadas
+                t3_advanced_recycling: {
+                    id: 't3_advanced_recycling',
+                    label: "P&D: Reciclagem Avançada",
+                    costRP: 20,
+                    description: "Desenvolve tecnologia para 'lixo zero', transformando 100% do resíduo.",
+                    effects: { sustainability: 10 },
+                    unlocksActions: ['action_zero_waste_plant'],
+                    requiredTech: ['t2_water_optimization']
+                },
+                t3_automation: {
+                    id: 't3_automation',
+                    label: "P&D: Automação de Linha",
+                    costRP: 25,
+                    description: "Implementa robôs para acelerar a produção (cuidado com a moral!).",
+                    effects: { production: 10 },
+                    unlocksActions: ['action_automate_production_line'],
+                    requiredTech: ['t2_green_energy']
+                },
+                t3_brand_strategy: {
+                    id: 't3_brand_strategy',
+                    label: "P&D: Estratégia de Marca",
+                    costRP: 15,
+                    description: "Cria uma marca forte e reconhecida nacionalmente.",
+                    effects: { reputation: 10 },
+                    unlocksActions: ['action_national_marketing_campaign'],
+                    requiredTech: ['t2_hr_development']
+                }
+            },
+            
+            // Ações de Gestão (Desbloqueadas por P&D ou padrão)
+            actions: {
+                // Ações Iniciais (Disponíveis no começo)
+                action_improve_breakroom: {
+                    id: 'action_improve_breakroom',
+                    label: "Melhorar Refeitório",
+                    cost: 150,
+                    description: "Café de melhor qualidade e um espaço mais confortável. Aumenta a moral.",
+                    effects: { morale: 10, waste: 1 },
+                    requiredTech: []
+                },
+                action_optimize_logistics: {
+                    id: 'action_optimize_logistics',
+                    label: "Otimizar Logística",
+                    cost: 200,
+                    description: "Revisar rotas de entrega para economizar combustível e tempo.",
+                    effects: { budget: 50, sustainability: 5 }, // +50/mês (simulado no cálculo de renda)
+                    isMonthlyEffect: true, // Indica que o efeito é recorrente
+                    monthlyEffects: { budget_income: 50 }
+                },
+                action_buy_more_land: {
+                    id: 'action_buy_more_land',
+                    label: "Comprar Mais Terra (5ha)",
+                    cost: 300,
+                    description: "Expande a área agrícola, aumentando o potencial de produção.",
+                    effects: { land: 5, production: 5, waste: 2 },
+                    requiredTech: []
+                },
+                action_protect_from_frost: {
+                    id: 'action_protect_from_frost',
+                    label: "Instalar Estufas Protetoras",
+                    cost: 400,
+                    description: "Protege a plantação de geadas, reduzindo perdas.",
+                    effects: { sustainability: 5 },
+                    unlocksFlag: 'frostProtection', // Flag para evento
+                    requiredTech: []
+                },
+
+                // Ações TIER 1 (Desbloqueadas por P&D T1)
+                action_implement_basic_recycling: {
+                    id: 'action_implement_basic_recycling',
+                    label: "Implementar Reciclagem Básica",
+                    cost: 300,
+                    description: "Instala lixeiras de separação e processos de reuso.",
+                    effects: { waste: -15, sustainability: 15, morale: 5 },
+                    requiredTech: ['t1_basic_recycling']
+                },
+                action_team_training_efficiency: {
+                    id: 'action_team_training_efficiency',
+                    label: "Capacitar Equipe (Eficiência)",
+                    cost: 250,
+                    description: "Treinamento para reduzir desperdício na linha de produção.",
+                    effects: { production: 10, morale: 10, waste: -5 },
+                    requiredTech: ['t1_efficiency_studies']
+                },
+                action_sponsor_local_team: {
+                    id: 'action_sponsor_local_team',
+                    label: "Patrocinar Time Local",
+                    cost: 200,
+                    description: "Coloca o logo da fábrica na camiseta do time de futebol da cidade.",
+                    effects: { morale: 5, reputation: 15 },
+                    requiredTech: ['t1_local_marketing']
+                },
+                action_community_open_day: {
+                    id: 'action_community_open_day',
+                    label: "Dia de Fábrica Aberta",
+                    cost: 100,
+                    description: "Convida a comunidade para visitar a fábrica.",
+                    effects: { reputation: 10 },
+                    requiredTech: ['t1_local_marketing']
+                },
+
+                // Ações TIER 2
+                action_install_water_reuse_system: {
+                    id: 'action_install_water_reuse_system',
+                    label: "Instalar Reuso de Água",
+                    cost: 600,
+                    description: "Sistema de ciclo fechado que economiza milhares de litros.",
+                    effects: { waste: -10, sustainability: 20 },
+                    requiredTech: ['t2_water_optimization']
+                },
+                action_install_solar_panels: {
+                    id: 'action_install_solar_panels',
+                    label: "Instalar Energia Solar (Pequena)",
+                    cost: 1000,
+                    description: "Cobre 30% da demanda de energia com painéis solares.",
+                    effects: { sustainability: 30, reputation: 10, waste: -5 },
+                    monthlyEffects: { budget_income: 100 }, // Economia de energia
+                    requiredTech: ['t2_green_energy']
+                },
+                action_profit_sharing_plan: {
+                    id: 'action_profit_sharing_plan',
+                    label: "Plano de Participação nos Lucros",
+                    cost: 500, // Custo inicial de implementação
+                    description: "Divide uma pequena parte dos lucros com a equipe.",
+                    effects: { morale: 25, production: 5 },
+                    monthlyEffects: { budget_expense: 100 }, // Custo recorrente
+                    requiredTech: ['t2_hr_development']
+                },
+                action_health_plan: {
+                    id: 'action_health_plan',
+                    label: "Oferecer Plano de Saúde Básico",
+                    cost: 300,
+                    description: "Plano de saúde para todos os funcionários.",
+                    effects: { morale: 20 },
+                    monthlyEffects: { budget_expense: 50 },
+                    requiredTech: ['t2_hr_development']
+                },
+
+                // Ações TIER 3 (Fim de Jogo)
+                action_zero_waste_plant: {
+                    id: 'action_zero_waste_plant',
+                    label: "Converter para 'Lixo Zero'",
+                    cost: 2500,
+                    description: "Investimento massivo para eliminar 100% do desperdício.",
+                    effects: { waste: -50, sustainability: 40, reputation: 20 },
+                    requiredTech: ['t3_advanced_recycling']
+                },
+                action_automate_production_line: {
+                    id: 'action_automate_production_line',
+                    label: "Automatizar Linha de Produção",
+                    cost: 2000,
+                    description: "Aumenta drasticamente a produção, mas pode reduzir a moral.",
+                    effects: { production: 50, morale: -20, waste: 5 },
+                    requiredTech: ['t3_automation']
+                },
+                action_national_marketing_campaign: {
+                    id: 'action_national_marketing_campaign',
+                    label: "Campanha de Marketing Nacional",
+                    cost: 1500,
+                    description: "Torna a 'EcoFábrica' uma marca reconhecida no Brasil.",
+                    effects: { reputation: 30 },
+                    monthlyEffects: { marketPriceModifier: 0.2 }, // Aumenta o preço dos produtos
+                    requiredTech: ['t3_brand_strategy']
+                }
+            },
+            
+            // Eventos Aleatórios (Mais complexos e frequentes)
+            events: [
+                // Eventos Negativos
+                {
+                    id: "GEADA",
+                    title: "Alerta de Geada Severa!",
+                    // Condição: Meses 6 ou 7 (Inverno), se NÃO tiver proteção
+                    condition: (s) => (s.currentMonth === 6 || s.currentMonth === 7) && !s.unlockedFlags.frostProtection && Math.random() < 0.6,
+                    message: "Uma frente fria intensa vinda do Sul ameaça congelar sua produção agrícola. Suas plantações estão vulneráveis!",
+                    choices: [
+                        { text: "Sofrer o impacto total", effects: { production: -20, budget: -150 }, log: "A geada foi devastadora. Perdemos parte da produção." },
+                        { text: "Tentar salvar parte (Gastar $100)", cost: 100, effects: { production: -10, budget: -50 }, log: "Conseguimos salvar parte da colheita, mas tivemos custos emergenciais." }
+                    ]
+                },
+                {
+                    id: "ESTIAGEM",
+                    title: "Estiagem Severa!",
+                    // Condição: Meses 1, 2, 11, 12 (Verão)
+                    condition: (s) => (s.currentMonth === 1 || s.currentMonth === 2 || s.currentMonth === 11 || s.currentMonth === 12) && !s.unlockedTech.includes('t2_water_optimization') && Math.random() < 0.4,
+                    message: "A falta de chuva no Paraná está crítica, afetando o nível dos reservatórios e sua produção.",
+                    choices: [
+                        { text: "Aceitar consequências", effects: { production: -15, waste: 5, budget: -100 }, log: "A estiagem impactou a produção e aumentou os custos." }
+                    ]
+                },
+                {
+                    id: "FISCALIZACAO",
+                    title: "Fiscalização Ambiental!",
+                    // Condição: Se o desperdício for alto
+                    condition: (s) => s.waste > 50 && s.sustainability < 30 && Math.random() < 0.3,
+                    message: "Fiscais do Instituto Água e Terra (IAT) estão na fábrica. Eles encontraram irregularidades no descarte de resíduos.",
+                    choices: [
+                        { text: "Pagar multa e se adequar ($300)", cost: 300, effects: { reputation: -10, sustainability: -5 }, log: "Multa paga. Tivemos que nos adequar às pressas." },
+                        { text: "Tentar subornar o fiscal ($150)", cost: 150, effects: { reputation: -30, sustainability: -10, morale: -10 }, log: "O fiscal não aceitou! O escândalo manchou a reputação da fábrica." },
+                        { text: "Negociar um Termo de Ajuste ($50)", cost: 50, effects: { reputation: -5 }, log: "Negociamos um TAC. A multa foi baixa, mas teremos que investir em P&D 't1_basic_recycling' no próximo mês." }
+                    ]
+                },
+                {
+                    id: "EQUIPE_DOENTE",
+                    title: "Surto de Gripe na Equipe",
+                    // Condição: Se a moral for baixa
+                    condition: (s) => s.morale < 50 && !s.unlockedActions.includes('action_health_plan') && Math.random() < 0.3,
+                    message: "Com a moral baixa e o inverno chegando, um surto de gripe afastou 15% da sua equipe.",
+                    choices: [
+                        { text: "Contratar temporários ($200)", cost: 200, effects: { production: -5, morale: -5 }, log: "Contratamos temporários, mas a produção caiu e a equipe ficou sobrecarregada." },
+                        { text: "Absorver a perda", effects: { production: -15, morale: -10, budget: -50 }, log: "Não fizemos nada e a produção do mês foi muito prejudicada." }
+                    ]
+                },
+                
+                // Eventos Positivos
+                {
+                    id: "MIDIA_POSITIVA",
+                    title: "Reportagem Local Positiva!",
+                    // Condição: Se a reputação for boa
+                    condition: (s) => s.reputation > 60 && s.sustainability > 50 && Math.random() < 0.25,
+                    message: "Um jornal local fez uma reportagem elogiando as práticas sustentáveis da EcoFábrica! O público adorou.",
+                    choices: [
+                        { text: "Agradecer e continuar", effects: { reputation: 15, morale: 10, marketPriceModifier: 0.1 }, log: "A reportagem positiva aumentou nossa reputação e o preço dos produtos!" }
+                    ]
+                },
+                {
+                    id: "INOVACAO_INTERNA",
+                    title: "Ideia Brilhante da Equipe!",
+                    // Condição: Se a moral for alta
+                    condition: (s) => s.morale > 75 && Math.random() < 0.2,
+                    message: "Com a equipe motivada, um funcionário sugeriu uma pequena mudança no processo que pode economizar muito!",
+                    choices: [
+                        { text: "Implementar e dar bônus ($100)", cost: 100, effects: { morale: 10, researchPoints: 5, waste: -10 }, log: "A ideia foi um sucesso e a equipe se sente valorizada!" },
+                        { text: "Implementar e ignorar o funcionário", effects: { morale: -15, researchPoints: 5, waste: -10 }, log: "A ideia funcionou, mas a equipe ficou desmotivada por não ser reconhecida." }
+                    ]
+                },
+                {
+                    id: "PREMIO_PREFEITURA",
+                    title: "Prêmio 'Empresa Amiga da Cidade'",
+                    // Condição: Se tiver P&D de marketing
+                    condition: (s) => s.reputation > 50 && s.unlockedTech.includes('t1_local_marketing') && Math.random() < 0.15,
+                    message: "A prefeitura reconheceu seus esforços comunitários e concedeu à fábrica um prêmio e um pequeno incentivo fiscal.",
+                    choices: [
+                        { text: "Receber prêmio! (+$300)", cost: -300, effects: { reputation: 10, morale: 5 }, log: "Ganhamos +$300 de incentivo e nossa reputação melhorou!" }
+                    ]
+                }
+            ]
+        };
+
+
+        /* ==========================================================================
+           VIRTUAL FILE: /js/core/State.js
+           DESCRIÇÃO: Classe que gerencia TODO o estado (dados) do jogo.
+                      Não mexe no HTML. Apenas calcula e guarda dados.
+           ========================================================================== */
+        
+        // PROFESSOR SABIÁ: 
+        // Esta classe, 'GameState', é o "Modelo" (o 'M' do MVC).
+        // Ela é o ÚNICO lugar que sabe qual é o seu orçamento, sua moral, etc.
+        // É a "fonte da verdade". Funções externas vão *perguntar* a ela
+        // ou *pedir* para ela mudar um valor.
+        
+        class GameState {
+            constructor() {
+                // Estado inicial
+                this.currentState = { ...GAME_DATA.initialState };
+                this.playerName = "Gestor(a)";
+                this.managerProfile = null; // 'visionario', 'capitalista', 'lider'
+                this.currentMonth = 0;
+                this.isEventActive = false;
+                
+                // Guarda tecnologias de P&D pesquisadas
+                this.unlockedTech = []; 
+                // Guarda ações de gestão já compradas
+                this.unlockedActions = [];
+                // Guarda flags especiais (ex: 'frostProtection')
+                this.unlockedFlags = {};
+                
+                // Efeitos recorrentes (ex: +$50/mês de logística)
+                this.monthlyEffects = {
+                    budget_income: 0,
+                    budget_expense: 0,
+                    marketPriceModifier: 0.0
+                };
+                
+                // Histórico para o gráfico de relatório
+                this.history = {
+                    budget: [],
+                    sustainability: [],
+                    waste: []
+                };
+            }
+            
+            /** Retorna o objeto de estado atual (imutável) */
+            get() {
+                // PROFESSOR SABIÁ: 
+                // Usamos '{ ...this.currentState }' (Spread Operator)
+                // para enviar uma *cópia* do estado, não o original.
+                // Isso é uma boa prática para evitar que outras partes
+                // do código modifiquem o estado "por baixo dos panos".
+                return { 
+                    ...this.currentState,
+                    playerName: this.playerName,
+                    managerProfile: this.managerProfile,
+                    currentMonth: this.currentMonth,
+                    unlockedTech: this.unlockedTech,
+                    unlockedActions: this.unlockedActions
+                };
+            }
+            
+            /** Inicia o estado do jogo com base na seleção do jogador */
+            initialize(playerName, profileId) {
+                this.playerName = playerName || "Gestor(a) Consciente";
+                this.managerProfile = profileId;
+                this.currentState = { ...GAME_DATA.initialState };
+                
+                // Reset de variáveis de controle
+                this.currentMonth = 0;
+                this.isEventActive = false;
+                this.unlockedTech = [];
+                this.unlockedActions = [];
+                this.unlockedFlags = {};
+                this.monthlyEffects = { budget_income: 0, budget_expense: 0, marketPriceModifier: 0.0 };
+                this.history = { budget: [], sustainability: [], waste: [] };
+
+                // Bônus inicial baseado no perfil (Exemplo)
+                if (profileId === 'visionario') {
+                    this.currentState.sustainability += 10;
+                    this.currentState.researchPoints += 3;
+                } else if (profileId === 'capitalista') {
+                    this.currentState.budget += 300;
+                } else if (profileId === 'lider') {
+                    this.currentState.morale += 10;
+                    this.currentState.reputation += 5;
+                }
+            }
+            
+            /**
+             * Aplica os efeitos de uma ação ou P&D
+             * @param {object} item - O objeto de Ação ou P&D
+             */
+            applyItemEffects(item) {
+                const s = this.currentState;
+
+                // 1. Custos
+                if (item.cost) s.budget -= item.cost;
+                if (item.costRP) s.researchPoints -= item.costRP;
+                
+                // 2. Efeitos Imediatos (ex: +10 moral)
+                if (item.effects) {
+                    for (const key in item.effects) {
+                        s[key] = (s[key] || 0) + item.effects[key];
+                    }
+                }
+                
+                // 3. Efeitos Recorrentes (ex: +$50/mês)
+                if (item.monthlyEffects) {
+                    for (const key in item.monthlyEffects) {
+                        this.monthlyEffects[key] = (this.monthlyEffects[key] || 0) + item.monthlyEffects[key];
+                    }
+                }
+                
+                // 4. Desbloqueios
+                if (item.id) {
+                    if (item.costRP) this.unlockedTech.push(item.id);
+                    else this.unlockedActions.push(item.id);
+                }
+                if (item.unlocksFlag) {
+                    this.unlockedFlags[item.unlocksFlag] = true;
+                }
+                
+                // 5. Garantir que os valores fiquem nos limites (0-100)
+                this.clampStats();
+            }
+            
+            /** Aplica os efeitos da escolha de um evento */
+            applyEventChoice(choice) {
+                const s = this.currentState;
+                if (choice.cost) s.budget -= choice.cost;
+                if (choice.effects) {
+                    for (const key in choice.effects) {
+                        s[key] = (s[key] || 0) + choice.effects[key];
+                    }
+                }
+                this.clampStats();
+            }
+
+            /**
+             * A principal função de cálculo do jogo. Roda a cada mês.
+             */
+            processMonthlyTurn() {
+                this.currentMonth++;
+                const s = this.currentState;
+                
+                // 1. Grava histórico (para o gráfico)
+                this.history.budget.push(s.budget);
+                this.history.sustainability.push(s.sustainability);
+                this.history.waste.push(s.waste);
+
+                // 2. Cálculo de Receita (Income)
+                const basePrice = 15; // Preço base por unidade de produção
+                const marketMod = s.marketPriceModifier + this.monthlyEffects.marketPriceModifier;
+                // Bônus de preço por reputação e sustentabilidade
+                const premiumMod = 1 + (s.reputation / 200) + (s.sustainability / 250);
+                const income = s.production * basePrice * marketMod * premiumMod;
+
+                // 3. Cálculo de Despesas (Expenses)
+                const wasteCost = s.waste * 5; // Custo por unidade de lixo
+                const productionCost = s.production * 3; // Custo operacional
+                const landCost = s.land * 5; // Custo de manutenção da terra
+                const moraleCost = Math.max(0, (100 - s.morale) * 2); // Custo de baixa moral (turnover, etc)
+                const expenses = wasteCost + productionCost + landCost + moraleCost;
+
+                // 4. Aplicar efeitos recorrentes
+                const netMonthlyEffects = this.monthlyEffects.budget_income - this.monthlyEffects.budget_expense;
+                
+                // 5. Atualizar Orçamento
+                const profit = income - expenses + netMonthlyEffects;
+                s.budget += profit;
+                
+                // 6. Atualizações Passivas
+                // Ganha P&D (mais se a moral for alta)
+                s.researchPoints += (s.morale > 75 ? 3 : (s.morale > 50 ? 2 : 1));
+                // Moral e Reputação tendem a "normalizar" (drift)
+                s.morale += (Math.random() * 4 - 2); // Flutuação de -2 a +2
+                s.reputation -= 1; // Reputação cai se não for mantida
+                
+                // 7. Aplicar limites
+                this.clampStats();
+                
+                // Retorna um resumo do mês para o Log
+                return { income, expenses, netMonthlyEffects, profit };
+            }
+            
+            /** Verifica se há um evento aleatório para este mês */
+            checkForRandomEvent() {
+                const s = this.get(); // Pega o estado atual
+                
+                const potentialEvents = GAME_DATA.events.filter(event => {
+                    // PROFESSOR SABIÁ: 
+                    // Isso é JS funcional! Usamos '.filter()' para criar
+                    // um NOVO array só com os eventos cuja 'condition' (condição)
+                    // retorna 'true'. É muito elegante!
+                    return event.condition(s);
+                });
+                
+                if (potentialEvents.length > 0) {
+                    // Pega um evento aleatório da lista de possíveis
+                    return Helpers.getRandomItem(potentialEvents);
+                }
+                return null; // Nenhum evento este mês
+            }
+            
+            /** Garante que as estatísticas fiquem entre 0 e 100 (ou mais, se necessário) */
+            clampStats() {
+                const s = this.currentState;
+                s.sustainability = Helpers.clamp(s.sustainability, 0, 100);
+                s.morale = Helpers.clamp(s.morale, 0, 100);
+                s.reputation = Helpers.clamp(s.reputation, 0, 100);
+                s.waste = Math.max(0, s.waste);
+                s.production = Math.max(0, s.production);
+                s.researchPoints = Math.max(0, s.researchPoints);
+                s.budget = Math.round(s.budget);
+            }
+            
+            /** Verifica a condição de vitória */
+            checkWinCondition() {
+                const profile = GAME_DATA.profiles[this.managerProfile];
+                if (!profile) return false;
+                return profile.winCondition(this.currentState);
+            }
+            
+            /** Retorna a mensagem de vitória ou derrota */
+            getFinalMessage(isBankruptcy) {
+                if (isBankruptcy) {
+                    return `Que pena... A ECOFÁBRICA faliu no Mês ${this.currentMonth}. Mas não desanime, toda jornada tem seus tropeços. Tente novamente!`;
+                }
+                
+                const profile = GAME_DATA.profiles[this.managerProfile];
+                const didWin = this.checkWinCondition();
+                
+                if (didWin) {
+                    const winMsg = profile.getWinMessage(this.currentState);
+                    return `PARABÉNS, ${this.playerName}! Você atingiu sua meta como ${profile.name}! ${winMsg} ${profile.description}`;
+                } else {
+                    return `A gestão foi um grande aprendizado, ${this.playerName}. Você não atingiu a meta de ${profile.name}, mas cada desafio ensina. Tente novamente!`;
+                }
+            }
+        }
+
+
+        /* ==========================================================================
+           VIRTUAL FILE: /js/core/UI.js
+           DESCRIÇÃO: Classe que gerencia TODA a interação com o DOM (HTML).
+                      Lê o estado e atualiza a tela. Não faz cálculos.
+           ========================================================================== */
+        
+        // PROFESSOR SABIÁ: 
+        // Esta classe, 'GameUI', é a "Visão" (o 'V' do MVC).
+        // Sua única tarefa é: "Olhar para o objeto 'State' e desenhar a tela".
+        // Ela não sabe *por que* o orçamento mudou. Ela só vê
+        // 'state.budget = 500' e atualiza o HTML para 'R$ 500'.
+        // Isso se chama "Decoupling" (Desacoplamento).
+        
+        class GameUI {
+            constructor() {
+                // "Cache" de seletores do DOM.
+                // PROFESSOR SABIÁ: 
+                // Guardamos os elementos em 'this.dom' no início
+                // para não ter que ficar chamando 'document.getElementById'
+                // toda hora. É muito mais rápido (performático)!
+                this.dom = {
+                    // Telas
+                    startScreen: document.getElementById('start-screen'),
+                    gameScreen: document.getElementById('game-screen'),
+                    endScreen: document.getElementById('end-screen'),
+                    
+                    // Cabeçalho
+                    gameHeader: document.getElementById('game-header'),
+                    
+                    // Tela Inicial
+                    playerNameInput: document.getElementById('player-name-input'),
+                    profileButtons: document.querySelectorAll('.c-btn--profile'),
+                    startButton: document.getElementById('start-button'),
+                    
+                    // Tela do Jogo
+                    statsGrid: document.getElementById('stats-grid'),
+                    decisionsColumn: document.getElementById('decisions-column'),
+                    researchColumn: document.getElementById('research-column'),
+                    nextMonthButton: document.getElementById('next-month-button'),
+                    showReportButton: document.getElementById('show-report-button'),
+                    gameLog: document.getElementById('game-log'),
+                    
+                    // Mentor (Sabiá)
+                    sabiaMentorBox: document.getElementById('sabia-mentor-ui'),
+                    sabiaTipTitle: document.getElementById('sabia-tip-title'),
+                    sabiaTipText: document.getElementById('sabia-tip-text'),
+
+                    // Tela Final
+                    finalStatsGrid: document.getElementById('final-stats-grid'),
+                    finalMessage: document.getElementById('final-message'),
+                    restartButton: document.getElementById('restart-button'),
+                    
+                    // Modais
+                    reportModal: document.getElementById('report-modal'),
+                    eventModal: document.getElementById('event-modal'),
+                    sabiaQuizModal: document.getElementById('sabia-quiz-modal'),
+                    closeModalButtons: document.querySelectorAll('.c-modal__close-btn'),
+                    
+                    // Conteúdo dos Modais
+                    chartContainer: document.getElementById('chart-container'),
+                    eventModalTitle: document.getElementById('event-modal-title'),
+                    eventModalMessage: document.getElementById('event-modal-message'),
+                    eventModalChoices: document.getElementById('event-modal-choices'),
+                    sabiaQuizQuestion: document.getElementById('sabia-quiz-question'),
+                    sabiaQuizChoices: document.getElementById('sabia-quiz-choices'),
+                    sabiaQuizFeedback: document.getElementById('sabia-quiz-feedback'),
+                    
+                    // Controles
+                    music: {
+                        audio: document.getElementById('background-music'),
+                        toggleBtn: document.getElementById('music-toggle')
+                    }
+                };
+                
+                // Variável para controlar a música
+                this.isMusicPlaying = false;
+            }
+            
+            /** Adiciona todos os event listeners da UI */
+            bindEvents(gameInstance) {
+                // PROFESSOR SABIÁ: 
+                // 'gameInstance' é o objeto 'Game' (nosso controlador).
+                // A UI não sabe o que 'handleAction' faz, ela só
+                // avisa o 'Game': "Ei, o usuário clicou em uma ação!".
+                // Isso é "Injeção de Dependência".
+                
+                // Tela Inicial
+                this.dom.profileButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        this.dom.profileButtons.forEach(btn => btn.classList.remove('is-selected'));
+                        button.classList.add('is-selected');
+                        this.dom.startButton.disabled = false;
+                    });
+                });
+                
+                this.dom.startButton.addEventListener('click', () => {
+                    const name = this.dom.playerNameInput.value;
+                    const profile = document.querySelector('.c-btn--profile.is-selected')?.dataset.profile;
+                    if (profile) {
+                        gameInstance.startGame(name, profile);
+                    }
+                });
+                
+                // Controles do Jogo
+                this.dom.nextMonthButton.addEventListener('click', () => gameInstance.advanceMonth());
+                this.dom.showReportButton.addEventListener('click', () => gameInstance.showReport());
+                this.dom.restartButton.addEventListener('click', () => window.location.reload());
+                
+                // Listeners de Ação e P&D (Usando Delegação de Evento)
+                // PROFESSOR SABIÁ: 
+                // "Delegação de Evento" é uma técnica PRO.
+                // Em vez de adicionar 30 listeners (um para cada botão),
+                // adicionamos UM listener no "pai" (a coluna).
+                // O pai "escuta" o clique e vê se ele veio de um
+                // botão com 'data-action-id'. É muito mais performático!
+                this.dom.decisionsColumn.addEventListener('click', (e) => {
+                    const button = e.target.closest('button[data-action-id]');
+                    if (button && !button.disabled) {
+                        gameInstance.handleAction(button.dataset.actionId);
+                    }
+                });
+                
+                this.dom.researchColumn.addEventListener('click', (e) => {
+                    const button = e.target.closest('button[data-research-id]');
+                    if (button && !button.disabled) {
+                        gameInstance.handleResearch(button.dataset.researchId);
+                    }
+                });
+
+                // Modais
+                this.dom.closeModalButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const modalId = btn.dataset.modalId;
+                        if (modalId) {
+                            this.showModal(modalId, false);
+                        }
+                    });
+                });
+                
+                // Fechar modal clicando fora
+                window.addEventListener('click', (event) => {
+                    if (event.target.classList.contains('c-modal')) {
+                        const modalId = event.target.id;
+                        if (modalId !== 'event-modal') { // Eventos não podem ser fechados clicando fora
+                            this.showModal(modalId, false);
+                        }
+                    }
+                });
+                
+                // Controle de Música
+                this.dom.music.toggleBtn.addEventListener('click', () => this.toggleMusic());
+            }
+
+            /** Alterna entre telas (start, game, end) */
+            switchScreen(screenName) {
+                this.dom.startScreen.classList.add('u-hidden');
+                this.dom.gameScreen.classList.add('u-hidden');
+                this.dom.endScreen.classList.add('u-hidden');
+                
+                if (screenName === 'game') {
+                    this.dom.gameScreen.classList.remove('u-hidden');
+                } else if (screenName === 'end') {
+                    this.dom.endScreen.classList.remove('u-hidden');
+                } else {
+                    this.dom.startScreen.classList.remove('u-hidden');
+                }
+            }
+            
+            /** Toca ou pausa a música de fundo */
+            toggleMusic(forcePlay = false) {
+                if (forcePlay && !this.isMusicPlaying) {
+                    this.dom.music.audio.volume = 0.2;
+                    this.dom.music.audio.play().catch(e => console.warn("Música aguardando interação do usuário."));
+                    this.dom.music.toggleBtn.textContent = '🎵';
+                    this.isMusicPlaying = true;
+                } else if (!forcePlay) {
+                    if (this.dom.music.audio.paused) {
+                        this.dom.music.audio.play();
+                        this.dom.music.toggleBtn.textContent = '🎵';
+                        this.isMusicPlaying = true;
+                    } else {
+                        this.dom.music.audio.pause();
+                        this.dom.music.toggleBtn.textContent = '🔇';
+                        this.isMusicPlaying = false;
+                    }
+                }
+            }
+
+            /**
+             * A principal função de renderização. Chamada todo mês.
+             * @param {object} state - O objeto de estado (vinda de state.get())
+             */
+            render(state, history, isEventActive) {
+                // 1. Renderiza Cabeçalho
+                this.dom.gameHeader.innerHTML = `Gestor(a) <strong>${state.playerName}</strong> - Mês: <strong>${state.currentMonth}</strong> / ${GAME_DATA.totalMonths}`;
+                
+                // 2. Renderiza Stats
+                this.renderStats(state, this.dom.statsGrid);
+                
+                // 3. Renderiza Ações e P&D
+                this.renderActions(state);
+                this.renderResearch(state);
+                
+                // 4. Atualiza estado dos botões (desabilitar/habilitar)
+                this.updateButtonStates(state, isEventActive);
+            }
+            
+            /** Renderiza o grid de estatísticas */
+            renderStats(state, targetElement) {
+                targetElement.innerHTML = ''; // Limpa o grid
+                const displayNames = GAME_DATA.statDisplayNames;
+                
+                // PROFESSOR SABIÁ: 
+                // 'Object.keys(displayNames)' pega todas as "chaves"
+                // (ex: 'budget', 'production') do objeto.
+                // Usamos 'forEach' para "varrer" esse array e criar
+                // um item de stat para cada chave.
+                
+                Object.keys(displayNames).forEach(key => {
+                    if (state.hasOwnProperty(key)) {
+                        const name = displayNames[key];
+                        const value = state[key];
+                        let valueStr = "";
+                        
+                        // Formatação especial
+                        if (key === 'budget') {
+                            valueStr = Helpers.formatCurrency(value);
+                        } else if (key === 'marketPriceModifier') {
+                            valueStr = `${(value * 100).toFixed(0)}%`;
+                        } else if (key.match(/sustainability|morale|reputation/)) {
+                            valueStr = `${value.toFixed(0)} / 100`;
+                        } else {
+                            valueStr = value.toFixed(0);
+                        }
+                        
+                        // Criação do HTML
+                        const statItem = document.createElement('div');
+                        statItem.className = 'c-stats-grid__item';
+                        
+                        // Adiciona classe modificadora para cor
+                        const modifierClass = `c-stats-grid__value--${key}`;
+                        
+                        statItem.innerHTML = `
+                            <span class="c-stats-grid__label">${name}</span>
+                            <span class="c-stats-grid__value ${modifierClass}">${valueStr}</span>
+                        `;
+                        targetElement.appendChild(statItem);
+                    }
+                });
+            }
+            
+            /** Renderiza os botões de Ações (Decisões) */
+            renderActions(state) {
+                this.dom.decisionsColumn.innerHTML = '<h4>Tomada de Decisão (Ações)</h4>'; // Limpa
+                
+                Object.values(GAME_DATA.actions).forEach(action => {
+                    // Verifica se já foi comprada (se for "comprável" 1x)
+                    if (action.unlocksFlag && state.unlockedFlags[action.unlocksFlag]) return;
+                    if (!action.isMonthlyEffect && state.unlockedActions.includes(action.id)) return;
+                    
+                    // Verifica se tem a P&D necessária
+                    const hasTech = action.requiredTech.every(techId => state.unlockedTech.includes(techId));
+                    if (!hasTech) return; // Esconde o botão se não tiver a P&D
+
+                    this.dom.decisionsColumn.appendChild(
+                        this.createActionButton(action, 'action', state)
+                    );
+                });
+            }
+            
+            /** Renderiza os botões de P&D (Pesquisa) */
+            renderResearch(state) {
+                this.dom.researchColumn.innerHTML = '<h4>Pesquisa & Desenvolvimento (P&D)</h4>';
+                
+                Object.values(GAME_DATA.researchTree).forEach(tech => {
+                    // Verifica se já foi pesquisada
+                    if (state.unlockedTech.includes(tech.id)) return;
+                    
+                    // Verifica se tem a P&D pré-requisito
+                    const hasRequiredTech = tech.requiredTech.every(reqId => state.unlockedTech.includes(reqId));
+                    if (!hasRequiredTech) return; // Esconde se não tiver o pré-requisito
+                    
+                    this.dom.researchColumn.appendChild(
+                        this.createActionButton(tech, 'research', state)
+                    );
+                });
+            }
+            
+            /** Função auxiliar para criar botões de ação/P&D */
+            createActionButton(item, type, state) {
+                const button = document.createElement('button');
+                const isResearch = type === 'research';
+                
+                button.dataset[isResearch ? 'researchId' : 'actionId'] = item.id;
+                button.className = `c-btn c-btn--action ${isResearch ? 'c-btn--research' : 'c-btn--decision'}`;
+                
+                const cost = item.cost || 0;
+                const costRP = item.costRP || 0;
+                
+                // Verifica custos
+                let reason = "";
+                if (state.budget < cost) reason = "Orçamento insuficiente";
+                else if (state.researchPoints < costRP) reason = "P&D insuficiente";
+                
+                button.disabled = reason !== "";
+                button.title = reason || item.description;
+                
+                // PROFESSOR SABIÁ: 
+                // 'Template Literals' (o texto com `...`) são fantásticos!
+                // Eles nos deixam injetar variáveis (ex: ${item.label})
+                // diretamente na string. Muito melhor que ficar
+                // concatenando com '+'.
+                
+                button.innerHTML = `
+                    <strong>${item.label}</strong>
+                    <small>
+                        ${item.description}
+                        <br>
+                        Custo: <span class="cost">${Helpers.formatCurrency(cost)}</span> / 
+                        <span class="rp">${costRP} P&D</span>
+                    </small>
+                `;
+                return button;
+            }
+            
+            /** Atualiza o estado de botões (ex: "Próximo Mês") */
+            updateButtonStates(state, isEventActive) {
+                this.dom.nextMonthButton.disabled = isEventActive;
+                this.dom.showReportButton.disabled = isEventActive;
+                
+                // Desabilita todos os botões de ação/P&D se um evento estiver ativo
+                this.dom.decisionsColumn.querySelectorAll('button').forEach(b => {
+                    if (isEventActive) b.disabled = true;
+                });
+                this.dom.researchColumn.querySelectorAll('button').forEach(b => {
+                    if (isEventActive) b.disabled = true;
+                });
+            }
+
+            /**
+             * Adiciona uma entrada ao Log de Eventos na tela
+             * @param {string} message - A mensagem (pode conter HTML)
+             * @param {string} type - 'good', 'bad', 'neutral', 'sabia'
+             */
+            addLog(message, type = 'neutral') {
+                const p = document.createElement('p');
+                p.innerHTML = message;
+                p.className = `c-game-log__entry c-game-log__entry--${type}`;
+                
+                // 'prepend' coloca o item mais novo no TOPO do log.
+                this.dom.gameLog.prepend(p);
+            }
+            
+            /** Atualiza a caixa de dicas do Professor Sabiá */
+            updateSabiaTip(title, text) {
+                this.dom.sabiaTipTitle.textContent = title;
+                this.dom.sabiaTipText.textContent = text;
+                // Animação sutil
+                this.dom.sabiaMentorBox.style.animation = 'none';
+                void this.dom.sabiaMentorBox.offsetWidth; // Truque para reiniciar a animação
+                this.dom.sabiaMentorBox.style.animation = 'fadeIn 0.5s';
+            }
+
+            /** Mostra ou esconde um modal
+             * @param {string} modalId - 'report-modal', 'event-modal', 'sabia-quiz-modal'
+             * @param {boolean} show - true para mostrar, false para esconder
+             */
+            showModal(modalId, show = true) {
+                const modal = this.dom[modalId];
+                if (modal) {
+                    modal.style.display = show ? 'block' : 'none';
+                }
+            }
+            
+            /** Preenche e mostra o modal de Evento
+             * @param {object} event - O objeto do evento
+             * @param {Function} choiceCallback - A função a ser chamada quando uma escolha é feita
+             */
+            showEventModal(event, choiceCallback) {
+                this.dom.eventModalTitle.textContent = event.title;
+                this.dom.eventModalMessage.textContent = event.message;
+                this.dom.eventModalChoices.innerHTML = ''; // Limpa escolhas
+                
+                event.choices.forEach((choice, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'c-btn c-btn--event c-btn--full-width';
+                    button.textContent = choice.text;
+                    button.onclick = () => {
+                        choiceCallback(index); // Avisa ao 'Game' qual escolha foi feita
+                        this.showModal('eventModal', false);
+                    };
+                    this.dom.eventModalChoices.appendChild(button);
+                });
+                
+                this.showModal('eventModal', true);
+            }
+            
+            /** Preenche e mostra o modal de Quiz do Sabiá
+             * @param {object} quiz - O objeto da pergunta
+             * @param {Function} answerCallback - A função a ser chamada na resposta
+             */
+            showSabiaQuizModal(quiz, answerCallback) {
+                this.dom.sabiaQuizQuestion.textContent = quiz.question;
+                this.dom.sabiaQuizChoices.innerHTML = '';
+                this.dom.sabiaQuizFeedback.innerHTML = '';
+                
+                // Randomiza a ordem das opções
+                const options = [...quiz.options].sort(() => Math.random() - 0.5);
+                
+                options.forEach(optionText => {
+                    const button = document.createElement('button');
+                    button.className = 'c-btn c-btn--decision c-btn--full-width';
+                    button.textContent = optionText;
+                    button.onclick = () => {
+                        const isCorrect = (optionText === quiz.answer);
+                        // Mostra o feedback
+                        this.dom.sabiaQuizFeedback.innerHTML = isCorrect ?
+                            `<span class="u-text-success"><strong>Correto!</strong> ${quiz.explanation}</span>` :
+                            `<span class="u-text-danger"><strong>Quase!</strong> A resposta correta é <strong>${quiz.answer}</strong>. ${quiz.explanation}</span>`;
+                        
+                        // Desabilita botões
+                        this.dom.sabiaQuizChoices.querySelectorAll('button').forEach(b => b.disabled = true);
+                        
+                        // Envia a resposta (correta ou não) para o 'Game'
+                        answerCallback(isCorrect);
+                    };
+                    this.dom.sabiaQuizChoices.appendChild(button);
+                });
+                
+                this.showModal('sabiaQuizModal', true);
+            }
+
+            /** Renderiza o gráfico de barras no modal de relatório */
+            renderReportChart(history) {
+                this.dom.chartContainer.innerHTML = ''; // Limpa
+                
+                if (history.budget.length === 0) {
+                    this.dom.chartContainer.innerHTML = "<p>Nenhum dado para exibir. Avance pelo menos um mês.</p>";
+                    return;
+                }
+                
+                // Acha os valores máximos para escalar o gráfico (altura 100%)
+                const maxBudget = Math.max(...history.budget, 1);
+                const maxWaste = Math.max(...history.waste, 50); // Mínimo de 50
+                const maxSustain = 100;
+
+                for (let i = 0; i < history.budget.length; i++) {
+                    const monthWrapper = document.createElement('div');
+                    monthWrapper.className = 'c-chart-bar-wrapper';
+
+                    // Função auxiliar para criar cada barra
+                    const createBar = (className, value, maxValue, label) => {
+                        const bar = document.createElement('div');
+                        bar.className = `c-chart-bar c-chart-bar--${className}`;
+                        // Altura em %
+                        bar.style.height = `${Helpers.clamp((value / maxValue) * 100, 5, 100)}%`; 
+                        bar.title = `${label}: ${value.toFixed(0)}`;
+                        bar.innerHTML = `<span class="c-chart-bar__value">${value.toFixed(0)}</span>`;
+                        return bar;
+                    };
+                    
+                    // Cria as 3 barras para o mês
+                    monthWrapper.appendChild(createBar('budget', history.budget[i], maxBudget, 'Orçamento'));
+                    monthWrapper.appendChild(createBar('sustainability', history.sustainability[i], maxSustain, 'Sustentabilidade'));
+                    monthWrapper.appendChild(createBar('waste', history.waste[i], maxWaste, 'Desperdício'));
+
+                    // Adiciona o label do Mês
+                    const label = document.createElement('span');
+                    label.className = 'c-chart-bar__label';
+                    label.textContent = `Mês ${i + 1}`;
+                    monthWrapper.appendChild(label);
+                    
+                    this.dom.chartContainer.appendChild(monthWrapper);
+                }
+            }
+            
+            /** Renderiza a tela final */
+            renderEndScreen(state, finalMessage, isWin) {
+                this.renderStats(state, this.dom.finalStatsGrid);
+                this.dom.finalMessage.textContent = finalMessage;
+                // Remove classes antigas e adiciona a nova
+                this.dom.finalMessage.className = '';
+                this.dom.finalMessage.classList.add(isWin ? 'u-text-success' : 'u-text-danger');
+                
+                this.switchScreen('end');
+                this.toggleMusic(false); // Pausa a música
+            }
+        }
+        
+        
+        /* ==========================================================================
+           VIRTUAL FILE: /js/modules/ProfessorSabia.js
+           DESCRIÇÃO: A "IA" do mentor.
+                      Lê o estado e decide qual dica ou pergunta fazer.
+           ========================================================================== */
+        
+        // PROFESSOR SABIÁ: 
+        // Olá! Esta é a minha classe, meu "cérebro".
+        // Eu sou um "módulo". O 'Game' (Controlador) me passa o 'State' (Modelo)
+        // e a 'UI' (Visão).
+        //
+        // Meu trabalho é:
+        // 1. Olhar o 'state' e ver se você precisa de ajuda (ex: 'state.budget < 500').
+        // 2. Se precisar, eu chamo 'ui.updateSabiaTip(...)' para te avisar.
+        // 3. De vez em quando, eu chamo 'ui.showSabiaQuizModal(...)' para
+        //    fazer uma pergunta sobre o código que você está vendo.
+        
+        class ProfessorSabia {
+            constructor(ui) {
+                this.ui = ui; // Recebe a UI para poder controlá-la
+                this.lastQuizMonth = -1;
+            }
+            
+            /** Loga uma mensagem no console com o estilo do Sabiá */
+            log(message, type = 'sabia') {
+                const s = `<strong>Professor Sabiá:</strong> "${message}"`;
+                this.ui.addLog(s, type);
+            }
+            
+            /** Mensagem de boas-vindas */
+            greet(playerName, profileName) {
+                this.log(`Olá, ${playerName}! Um ${profileName}, hein? Uma escolha audaciosa! Sua jornada na EcoFábrica começa agora. Estou aqui para ajudar!`);
+            }
+            
+            /** Analisa o estado e dá uma dica contextual */
+            giveContextualTip(state) {
+                let tipToShow = "As coisas parecem estáveis. Continue com o bom planejamento!";
+                let tipTitle = "Relatório do Professor Sabiá";
+                
+                // Procura por uma dica de "problema" primeiro
+                const problemTip = SABIA_KNOWLEDGE_BASE.gameTips.find(tip => {
+                    return tip.condition(state);
+                });
+                
+                if (problemTip) {
+                    tipToShow = problemTip.tip;
+                    tipTitle = "🦉 Alerta do Professor Sabiá!";
+                } else {
+                    // Se não houver problema, pega uma dica genérica
+                    const genericTips = [
+                        "Não se esqueça de investir em P&D! O conhecimento de hoje é o lucro de amanhã.",
+                        "Manter a Moral da Equipe alta resulta em mais Pontos de P&D passivos.",
+                        "Reputação alta pode aumentar o preço dos seus produtos. Fique de olho!",
+                        "Desperdício não é só ruim para o planeta, ele gera custos diretos todo mês!"
+                    ];
+                    tipToShow = Helpers.getRandomItem(genericTips);
+                    tipTitle = "🦉 Dica do Professor Sabiá";
+                }
+                
+                this.ui.updateSabiaTip(tipTitle, tipToShow);
+            }
+            
+            /** Decide se é hora de fazer uma pergunta do quiz */
+            attemptToAskQuiz(state, gameInstance) {
+                // Não faz pergunta no primeiro mês ou se um evento estiver ativo
+                if (state.currentMonth <= 1 || state.isEventActive) return;
+                
+                // Só faz uma pergunta a cada 2 meses (e 30% de chance)
+                if (state.currentMonth > this.lastQuizMonth + 1 && Math.random() < 0.3) {
+                    this.lastQuizMonth = state.currentMonth;
+                    
+                    const question = Helpers.getRandomItem(SABIA_KNOWLEDGE_BASE.quizQuestions);
+                    if (question) {
+                        this.log("Vamos fazer uma pausa rápida para testar seu conhecimento de código!");
+                        
+                        // Mostra o quiz e define o que fazer quando o usuário responder
+                        this.ui.showSabiaQuizModal(question, (isCorrect) => {
+                            // O 'gameInstance' (o 'Game') é passado para cá
+                            // para que o Sabiá possa recompensar o jogador.
+                            gameInstance.handleQuizResult(isCorrect);
+                        });
+                    }
+                }
+            }
+            
+            /** Loga o resultado do quiz */
+            logQuizResult(isCorrect) {
+                if (isCorrect) {
+                    this.log("Parabéns, resposta correta! Você ganhou +3 Pontos de P&D como bônus!", 'good');
+                } else {
+                    this.log("Quase! Mas não se preocupe, o importante é aprender. Continue estudando o código!", 'bad');
+                }
+            }
+        }
+
+
+        /* ==========================================================================
+           VIRTUAL FILE: /js/core/Game.js
+           DESCRIÇÃO: O "Motor" central do Jogo (Controlador).
+                      Orquestra o State, a UI e os Módulos.
+           ========================================================================== */
+        
+        // PROFESSOR SABIÁ: 
+        // Esta é a classe 'Game', o "Maestro" da orquestra.
+        // É o "Controlador" (o 'C' do MVC).
+        
+        // Ela não sabe *como* desenhar a tela (isso é trabalho da UI).
+        // Ela não sabe *como* calcular o lucro (isso é trabalho do State).
+        
+        // O trabalho dela é dizer:
+        // 1. "UI, tela de início!"
+        // 2. (Usuário clica) "State, inicie com o perfil 'Visionário'."
+        // 3. "UI, mostre a tela do jogo!"
+        // 4. "Sabiá, dê as boas-vindas."
+        // 5. (Usuário clica 'Avançar Mês') "State, calcule o próximo mês."
+        // 6. "State, tem algum evento?"
+        // 7. "UI, renderize o novo estado."
+        // 8. "UI, mostre este evento."
+        // 9. "Sabiá, dê uma dica sobre o novo estado."
+        //
+        // Ela é a chefe que coordena tudo.
+        
+        class Game {
+            constructor() {
+                // Inicializa os componentes principais
+                // (Injeção de Dependência)
+                this.state = new GameState();
+                this.ui = new GameUI();
+                this.sabia = new ProfessorSabia(this.ui); // O Sabiá precisa da UI para falar
+                
+                this.isEventActive = false; // Controle de fluxo
+            }
+            
+            /** Inicia o jogo, liga os listeners */
+            init() {
+                this.ui.bindEvents(this); // Passa 'this' (a própria classe Game) para a UI
+                this.ui.switchScreen('start');
+            }
+            
+            /** Chamado pelo botão 'Start' */
+            startGame(playerName, profileId) {
+                this.state.initialize(playerName, profileId);
+                
+                const s = this.state.get();
+                const profileName = GAME_DATA.profiles[s.managerProfile].name;
+                
+                this.ui.switchScreen('game');
+                this.ui.toggleMusic(true); // Tenta tocar a música
+                this.sabia.greet(s.playerName, profileName);
+                
+                // Avança para o Mês 1
+                this.advanceMonth(true);
+            }
+            
+            /** O "Game Loop" principal */
+            advanceMonth(isFirstMonth = false) {
+                if (this.isEventActive) return; // Não avança se um evento estiver ativo
+                
+                // 1. Processa os cálculos do mês (lucros, custos, etc.)
+                if (!isFirstMonth) {
+                    const summary = this.state.processMonthlyTurn();
+                    this.ui.addLog(`Mês fechado. Receita: ${Helpers.formatCurrency(summary.income)}, Custos: ${Helpers.formatCurrency(summary.expenses)}. Lucro/Prejuízo: ${Helpers.formatCurrency(summary.profit)}.`, 'neutral');
+                } else {
+                    this.state.currentMonth = 1; // Pula para o mês 1
+                }
+                
+                // 2. Verifica condições de Fim de Jogo
+                const s = this.state.get();
+                if (s.budget <= 0) {
+                    this.endGame(true); // Falência
+                    return;
+                }
+                if (s.currentMonth > GAME_DATA.totalMonths) {
+                    this.endGame(false); // Fim do tempo
+                    return;
+                }
+                
+                // 3. Verifica Eventos Aleatórios
+                const event = this.state.checkForRandomEvent();
+                if (event) {
+                    this.isEventActive = true;
+                    this.ui.showEventModal(event, (choiceIndex) => {
+                        this.handleEventChoice(event, choiceIndex);
+                    });
+                    this.ui.addLog(`EVENTO: ${event.title}`, 'bad');
+                }
+
+                // 4. Renderiza a UI com o novo estado
+                this.ui.render(s, this.state.history, this.isEventActive);
+                
+                // 5. Professor Sabiá dá sua dica do mês
+                this.sabia.giveContextualTip(s);
+                
+                // 6. Professor Sabiá tenta fazer um Quiz
+                if (!this.isEventActive) {
+                    this.sabia.attemptToAskQuiz(s, this);
+                }
+            }
+            
+            /** Chamado pela UI quando uma Ação é clicada */
+            handleAction(actionId) {
+                if (this.isEventActive) return;
+                
+                const action = GAME_DATA.actions[actionId];
+                if (!action) return;
+                
+                // Aplica os efeitos no estado
+                this.state.applyItemEffects(action);
+                
+                // Loga e atualiza a UI
+                this.ui.addLog(`Ação realizada: ${action.label} (Custo: ${Helpers.formatCurrency(action.cost || 0)})`, 'good');
+                this.ui.render(this.state.get(), this.state.history, this.isEventActive);
+            }
+            
+            /** Chamado pela UI quando uma P&D é clicada */
+            handleResearch(techId) {
+                if (this.isEventActive) return;
+
+                const tech = GAME_DATA.researchTree[techId];
+                if (!tech) return;
+                
+                // Aplica os efeitos no estado
+                this.state.applyItemEffects(tech);
+                
+                // Loga e atualiza a UI
+                this.ui.addLog(`Pesquisa concluída: ${tech.label} (Custo: ${tech.costRP} P&D)`, 'good');
+                this.ui.render(this.state.get(), this.state.history, this.isEventActive);
+            }
+            
+            /** Chamado pela UI (modal) quando uma escolha de evento é feita */
+            handleEventChoice(event, choiceIndex) {
+                const choice = event.choices[choiceIndex];
+                if (!choice) return;
+                
+                // Aplica os efeitos da escolha
+                this.state.applyEventChoice(choice);
+                
+                // Loga o resultado
+                this.ui.addLog(`Resultado do Evento: ${choice.log}`, 'neutral');
+                
+                // Libera o jogo
+                this.isEventActive = false;
+                this.ui.render(this.state.get(), this.state.history, this.isEventActive);
+                
+                // Tenta fazer o quiz agora que o evento acabou
+                this.sabia.attemptToAskQuiz(this.state.get(), this);
+            }
+            
+            /** Chamado pelo Sabiá quando o quiz é respondido */
+            handleQuizResult(isCorrect) {
+                if (isCorrect) {
+                    // Recompensa: +3 P&D
+                    this.state.currentState.researchPoints += 3;
+                    this.sabia.logQuizResult(true);
+                    // Atualiza a UI para mostrar os novos pontos de P&D
+                    this.ui.renderStats(this.state.get(), this.ui.dom.statsGrid);
+                } else {
+                    this.sabia.logQuizResult(false);
+                }
+            }
+            
+            /** Chamado pela UI para mostrar o relatório */
+            showReport() {
+                if (this.isEventActive) return;
+                this.ui.renderReportChart(this.state.history);
+                this.ui.showModal('reportModal', true);
+            }
+
+            /** Encerra o jogo e mostra a tela final */
+            endGame(isBankruptcy) {
+                const finalMessage = this.state.getFinalMessage(isBankruptcy);
+                const didWin = !isBankruptcy && this.state.checkWinCondition();
+                
+                this.ui.renderEndScreen(this.state.get(), finalMessage, didWin);
+            }
+        }
+
+
+        /* ==========================================================================
+           VIRTUAL FILE: /js/main.js
+           DESCRIÇÃO: Ponto de Entrada da Aplicação.
+                      Cria a instância do Jogo e inicia.
+           ========================================================================== */
+        
+        // PROFESSOR SABIÁ: 
+        // E aqui... tudo começa!
+        // Após o "DOMContentLoaded", nós apenas criamos
+        // UMA instância da classe 'Game' e chamamos o método '.init()'.
+        // O resto da mágica acontece dentro das classes que escrevemos.
+        //
+        // Limpo, organizado e profissional.
+        // Boa sorte na sua gestão, jovem aprendiz!
+        
+        const ecoGame = new Game();
+        ecoGame.init();
+
+    }); // Fim do 'DOMContentLoaded'
+    </script>
+</body>
+</html>
