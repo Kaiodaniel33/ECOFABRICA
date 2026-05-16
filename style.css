@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoFábrica Consciente - Gestão Estratégica</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="background-music" src="https://www.chosic.com/wp-content/uploads/2021/04/And-So-It-Begins-Inspired-By-Crush-Sometimes.mp3" loop></audio>
+
+    <main class="l-game-wrapper">
+        <header class="l-game-header">
+            <button id="music-toggle" class="c-btn c-btn--audio-toggle" aria-label="Ativar ou desativar música">🎵</button>
+            <h1 class="u-text-center">EcoFábrica Consciente</h1>
+            <h2 id="game-header" class="u-text-center">Gestão Estratégica</h2>
+        </header>
+        
+        <section id="start-screen">
+            <div class="c-form-group">
+                <label for="player-name-input">Nome do(a) Gestor(a):</label>
+                <input type="text" id="player-name-input" placeholder="Digite seu nome aqui">
+            </div>
+            
+            <div id="profile-selection">
+                <h4>Escolha seu Perfil de Gestão:</h4>
+                <button class="c-btn c-btn--profile c-btn--full-width" data-profile="visionario">
+                    <strong>🌎 Visionário Verde</strong>
+                    <small>Meta: Maximizar Sustentabilidade (100) e Reputação (90).</small>
+                </button>
+                <button class="c-btn c-btn--profile c-btn--full-width" data-profile="capitalista">
+                    <strong>💰 Capitalista Consciente</strong>
+                    <small>Meta: Maximizar o Lucro (R$ 5000) e Sustentabilidade (60).</small>
+                </button>
+                <button class="c-btn c-btn--profile c-btn--full-width" data-profile="lider">
+                    <strong>👨‍👩‍👧‍👦 Líder Comunitário</strong>
+                    <small>Meta: Maximizar a Moral da Equipe (100) e Reputação (95).</small>
+                </button>
+            </div>
+            <button id="start-button" class="c-btn c-btn--start c-btn--full-width" disabled>Aceitar o Desafio e Iniciar Gestão!</button>
+        </section>
+
+        <section id="game-screen" class="u-hidden">
+            <div id="stats-grid" class="c-stats-grid"></div>
+
+            <aside id="sabia-mentor-ui" class="c-sabia-mentor">
+                <div class="c-sabia-mentor__icon">🦉</div>
+                <div class="c-sabia-mentor__content">
+                    <h4 id="sabia-tip-title">Dica do Professor Sabiá</h4>
+                    <p id="sabia-tip-text">Bem-vindo(a)! Preste atenção nas suas métricas. O equilíbrio é a chave!</p>
+                </div>
+            </aside>
+            
+            <div class="l-columns">
+                <div id="decisions-column"></div>
+                <div id="research-column">
+                    <h4>Pesquisa & Desenvolvimento (P&D)</h4>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <button id="show-report-button" class="c-btn">Ver Relatório de Desempenho</button>
+                <button id="next-month-button" class="c-btn c-btn--next-month c-btn--full-width">Avançar para Próximo Mês</button>
+            </div>
+
+            <h4>Log de Eventos</h4>
+            <div id="game-log" class="c-game-log"></div>
+        </section>
+
+        <section id="end-screen" class="u-hidden u-text-center">
+            <h2>Fim do Ciclo de Gestão!</h2>
+            <p>Confira o desempenho final da sua ECOFÁBRICA CONSCIENTE:</p>
+            <div id="final-stats-grid" class="c-stats-grid"></div>
+            <p id="final-message" style="font-size: 1.2em; font-weight: bold;"></p>
+            <button id="restart-button" class="c-btn c-btn--start c-btn--full-width">Iniciar Nova Gestão (Recarregar)</button>
+        </section>
+
+        <footer class="l-credits-footer">
+            <p><strong>Desenvolvimento do Conceito e Jogo Base:</strong> Kaio Daniel de Souza da Costa (1º A), Lucas Raczenski Marques (2º A), Murilo Silvestre Bernardes (2º A), Marielly (2º A), Stefany (2º A), Lucas Gabriel Kruger Avelino (2º A)</p>
+            <p>C.E. PROFESSOR IVONE SOARES CASTANHARO | <strong>Professor Monitor Orientador:</strong> Felipe Oliveira TI</p>
+        </footer>
+    </main>
+
+    <div id="report-modal" class="c-modal" role="dialog" aria-modal="true" aria-labelledby="report-modal-title">
+        <div class="c-modal__content">
+            <span class="c-modal__close-btn" data-modal-id="report-modal">&times;</span>
+            <h2 id="report-modal-title">Relatório de Desempenho</h2>
+            <p>Evolução mensal das suas principais métricas:</p>
+            <div id="chart-container" class="c-chart-container"></div>
+            <div style="display: flex; justify-content: space-around; margin-top: 10px; font-size: 0.9em;">
+                <span><span style="color:var(--color-success)">■</span> Orçamento</span>
+                <span><span style="color:var(--color-primary)">■</span> Sustentabilidade</span>
+                <span><span style="color:var(--color-danger)">■</span> Desperdício</span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="event-modal" class="c-modal" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
+        <div class="c-modal__content c-modal__content--event">
+            <span class="c-modal__close-btn u-hidden">&times;</span> <h2 id="event-modal-title">Acontecimento!</h2>
+            <p id="event-modal-message">Uma situação inesperada ocorreu!</p>
+            <div id="event-modal-choices"></div>
+        </div>
+    </div>
+    
+    <div id="sabia-quiz-modal" class="c-modal" role="dialog" aria-modal="true" aria-labelledby="sabia-quiz-title">
+        <div class="c-modal__content c-modal__content--sabia">
+            <span class="c-modal__close-btn" data-modal-id="sabia-quiz-modal">&times;</span>
+            <h2 id="sabia-quiz-title">🦉 Pergunta do Professor Sabiá!</h2>
+            <p>Vamos testar seu conhecimento de código, jovem aprendiz!</p>
+            <p id="sabia-quiz-question" style="font-weight: 700; font-size: 1.1em;"></p>
+            <div id="sabia-quiz-choices"></div>
+            <p id="sabia-quiz-feedback" style="margin-top: 15px;"></p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
