@@ -214,13 +214,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         bindEvents(gameInstance) {
+            
+            // CORREÇÃO DO BUG: Pré-selecionar o primeiro perfil e desbloquear o botão
+            if(this.dom.profileButtons.length > 0) {
+                this.dom.profileButtons[0].classList.add('is-selected');
+                this.dom.startButton.disabled = false;
+            }
+
             this.dom.profileButtons.forEach(button => {
-                button.addEventListener('click', () => { this.dom.profileButtons.forEach(btn => btn.classList.remove('is-selected')); button.classList.add('is-selected'); this.dom.startButton.disabled = false; });
+                button.addEventListener('click', () => { 
+                    this.dom.profileButtons.forEach(btn => btn.classList.remove('is-selected')); 
+                    button.classList.add('is-selected'); 
+                    this.dom.startButton.disabled = false; 
+                });
             });
+            
             this.dom.startButton.addEventListener('click', () => {
-                const name = this.dom.playerNameInput.value; const profile = document.querySelector('.c-btn--profile.is-selected')?.dataset.profile;
+                const name = this.dom.playerNameInput.value; 
+                const profile = document.querySelector('.c-btn--profile.is-selected')?.dataset.profile;
                 if (profile) { gameInstance.startGame(name, profile); }
             });
+            
             this.dom.nextMonthButton.addEventListener('click', () => gameInstance.advanceMonth());
             this.dom.showReportButton.addEventListener('click', () => gameInstance.showReport());
             this.dom.restartButton.addEventListener('click', () => window.location.reload());
