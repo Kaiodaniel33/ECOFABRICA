@@ -1,18 +1,13 @@
-/* ==========================================================================
-   TOKENS DE DESIGN E VARIÁVEIS
-   ========================================================================== */
 :root {
     --color-primary-dark: #225c51;
     --color-primary: #2c786c;
     --color-primary-light: #4a7c59;
     --color-primary-extralight: #e8f5e9;
-
     --color-success: #4caf50;
     --color-warning: #ff9800;
     --color-danger: #f44336;
     --color-info: #2196f3;
     --color-research: #673ab7; 
-
     --color-text-primary: #212121;
     --color-text-secondary: #5f6368;
     --color-text-light: #ffffff;
@@ -38,9 +33,6 @@
     --transition-speed-fast: 0.1s ease-in-out;
 }
 
-/* ==========================================================================
-   RESET E BASE
-   ========================================================================== */
 *, *::before, *::after { box-sizing: border-box; }
 
 html { font-size: var(--font-size-base); }
@@ -79,9 +71,6 @@ h4 {
 p { margin: 0 0 1em 0; }
 small { font-size: 0.85em; color: var(--color-text-secondary); }
 
-/* ==========================================================================
-   LAYOUT
-   ========================================================================== */
 .l-game-wrapper {
     background-color: var(--color-background-container);
     padding: 25px 30px;
@@ -110,9 +99,6 @@ small { font-size: 0.85em; color: var(--color-text-secondary); }
     padding-top: 15px;
 }
 
-/* ==========================================================================
-   BOTÕES
-   ========================================================================== */
 .c-btn {
     font-family: var(--font-family-body);
     font-weight: 700;
@@ -210,9 +196,6 @@ small { font-size: 0.85em; color: var(--color-text-secondary); }
     z-index: 10;
 }
 
-/* ==========================================================================
-   GRID DE ESTATÍSTICAS E LOG
-   ========================================================================== */
 .c-stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -286,9 +269,6 @@ small { font-size: 0.85em; color: var(--color-text-secondary); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ==========================================================================
-   FORMULÁRIOS E MODAIS
-   ========================================================================== */
 .c-form-group { margin-bottom: 20px; text-align: left; }
 .c-form-group label { display: block; margin-bottom: 8px; font-weight: 700; color: var(--color-primary-light); font-size: 1.1em; }
 .c-form-group input[type="text"] {
@@ -332,9 +312,6 @@ small { font-size: 0.85em; color: var(--color-text-secondary); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ==========================================================================
-   GRÁFICOS E PROFESSOR SABIÁ
-   ========================================================================== */
 .c-chart-container {
     display: flex; justify-content: space-around; align-items: flex-end;
     height: 250px; border-bottom: 2px solid var(--color-text-primary);
@@ -367,9 +344,6 @@ small { font-size: 0.85em; color: var(--color-text-secondary); }
 .c-sabia-mentor__content h4 { margin: 0 0 5px 0; color: var(--color-warning); border-bottom: none; font-size: 1.1em; }
 .c-sabia-mentor__content p { margin: 0; font-size: 0.95em; color: var(--color-text-secondary); }
 
-/* ==========================================================================
-   RESPONSIVIDADE E UTILITÁRIOS
-   ========================================================================== */
 @media (max-width: 768px) {
     body { padding: 10px; }
     .l-game-wrapper { padding: 15px; }
