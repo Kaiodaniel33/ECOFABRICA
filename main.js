@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         actions: {
             action_optimize_logistics: { id: 'action_optimize_logistics', category: 'Operações', label: "Otimizar Logística de Entrega", cost: 200, description: "Revisar rotas de entrega para economizar combustível e tempo.", effects: {}, isMonthlyEffect: true, monthlyEffects: { budget_income: 50, sustainability: 1 }, requiredTech: [] },
-            action_implement_basic_recycling: { id: 'action_implement_basic_recycling', category: 'Operações', label: "Implementar Reciclagem Básica", cost: 300, description: "Instala lixeiras de separação e processos de reuso.", effects: { waste: -15, sustainability: 15, morale: 5 }, requiredTech: ['t1_basic_recycling'] },
+            action_implement_basic_recycling: { id: 'action_implement_basic_recycling', category: 'Operações', label: "Implementar Reciclagem Básica", cost: 300, description: "Instala lixeiras de separação e processes de reuso.", effects: { waste: -15, sustainability: 15, morale: 5 }, requiredTech: ['t1_basic_recycling'] },
             action_install_water_reuse_system: { id: 'action_install_water_reuse_system', category: 'Operações', label: "Instalar Reuso de Água", cost: 600, description: "Sistema de ciclo fechado que economiza milhares de litros.", effects: { waste: -10, sustainability: 20 }, requiredTech: ['t2_water_optimization'] },
             action_install_solar_panels: { id: 'action_install_solar_panels', category: 'Operações', label: "Instalar Energia Solar (Pequena)", cost: 1000, description: "Cobre 30% da demanda de energia com painéis solares.", effects: { sustainability: 30, reputation: 10, waste: -5 }, monthlyEffects: { budget_income: 100 }, requiredTech: ['t2_green_energy'] },
             action_local_suppliers: { id: 'action_local_suppliers', category: 'Operações', label: "Priorizar Fornecedores Locais", cost: 250, description: "Reduz custo de frete e melhora a reputação local.", effects: { reputation: 10, sustainability: 5 }, monthlyEffects: { budget_income: 25 }, requiredTech: ['t2_supply_chain'] },
@@ -468,8 +468,9 @@ document.addEventListener("DOMContentLoaded", () => {
             this.dom.sabiaMentorBox.style.animation = 'fadeIn 0.5s';
         }
 
+        // CORREÇÃO: Função ajustada para aceitar tanto o nome da variável quanto o ID direto do HTML
         showModal(modalId, show = true) {
-            const modal = this.dom[modalId];
+            const modal = this.dom[modalId] || document.getElementById(modalId);
             if (modal) { modal.style.display = show ? 'block' : 'none'; }
         }
 
