@@ -3,117 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoFábrica Consciente - Gestão Estratégica</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
-    
+    <title>EcoFábrica Consciente — Gestão Estratégica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <audio id="background-music" src="https://www.chosic.com/wp-content/uploads/2021/04/And-So-It-Begins-Inspired-By-Crush-Sometimes.mp3" loop></audio>
 
+    <!-- BG GRID DECORATION -->
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb--1" aria-hidden="true"></div>
+    <div class="bg-orb bg-orb--2" aria-hidden="true"></div>
+
     <main class="l-game-wrapper">
+
+        <!-- HEADER BAR -->
         <header class="l-game-header">
-            <button id="music-toggle" class="c-btn c-btn--audio-toggle" aria-label="Ativar ou desativar música">🎵</button>
-            <h1 class="u-text-center">EcoFábrica Consciente</h1>
-            <h2 id="game-header" class="u-text-center">Gestão Estratégica</h2>
+            <div class="header-brand">
+                <span class="header-logo">🌿</span>
+                <div>
+                    <div class="header-title">EcoFábrica Consciente</div>
+                    <div id="game-header" class="header-subtitle">Sistema de Gestão Estratégica</div>
+                </div>
+            </div>
+            <div class="header-controls">
+                <button id="music-toggle" class="c-btn c-btn--icon" aria-label="Música">
+                    <span class="btn-icon">🎵</span>
+                </button>
+            </div>
         </header>
-        
-        <section id="start-screen">
-            <div class="c-form-group">
-                <label for="player-name-input">Nome do(a) Gestor(a):</label>
-                <input type="text" id="player-name-input" placeholder="Digite seu nome aqui">
+
+        <!-- ======================== START SCREEN ======================== -->
+        <section id="start-screen" class="screen screen--start">
+            <div class="start-hero">
+                <div class="start-badge">Simulador de Gestão Ambiental</div>
+                <h1 class="start-title">Seja o gestor que<br><mark>o planeta precisa.</mark></h1>
+                <p class="start-desc">Tome decisões estratégicas, equilibre lucro e sustentabilidade, e leve sua EcoFábrica ao sucesso em 12 meses.</p>
             </div>
-            
-            <div id="profile-selection">
-                <h4>Escolha seu Perfil de Gestão:</h4>
-                <button class="c-btn c-btn--profile c-btn--full-width" data-profile="visionario">
-                    <strong>🌎 Visionário Verde</strong>
-                    <small>Meta: Maximizar Sustentabilidade (100) e Reputação (90).</small>
-                </button>
-                <button class="c-btn c-btn--profile c-btn--full-width" data-profile="capitalista">
-                    <strong>💰 Capitalista Consciente</strong>
-                    <small>Meta: Maximizar o Lucro (R$ 5000) e Sustentabilidade (60).</small>
-                </button>
-                <button class="c-btn c-btn--profile c-btn--full-width" data-profile="lider">
-                    <strong>👨‍👩‍👧‍👦 Líder Comunitário</strong>
-                    <small>Meta: Maximizar a Moral da Equipe (100) e Reputação (95).</small>
-                </button>
+
+            <div class="start-form-grid">
+                <div class="start-left">
+                    <div class="c-form-group">
+                        <label for="player-name-input">
+                            <span class="label-icon">👤</span> Nome do(a) Gestor(a)
+                        </label>
+                        <input type="text" id="player-name-input" placeholder="Ex: Ana Sustentável" autocomplete="off">
+                    </div>
+
+                    <div class="profile-section">
+                        <p class="profile-label"><span class="label-icon">🎯</span> Perfil de Gestão</p>
+                        <div id="profile-selection" class="profile-grid">
+                            <button class="c-btn c-btn--profile" data-profile="visionario">
+                                <span class="profile-emoji">🌎</span>
+                                <span class="profile-name">Visionário Verde</span>
+                                <span class="profile-goal">Meta: Sustentabilidade 100 + Reputação 90</span>
+                                <span class="profile-bonus">+10 Sustentabilidade inicial · +3 P&D</span>
+                            </button>
+                            <button class="c-btn c-btn--profile" data-profile="capitalista">
+                                <span class="profile-emoji">💰</span>
+                                <span class="profile-name">Capitalista Consciente</span>
+                                <span class="profile-goal">Meta: R$ 5.000 em caixa + Sustentabilidade 60</span>
+                                <span class="profile-bonus">+R$ 300 no orçamento inicial</span>
+                            </button>
+                            <button class="c-btn c-btn--profile" data-profile="lider">
+                                <span class="profile-emoji">👨‍👩‍👧‍👦</span>
+                                <span class="profile-name">Líder Comunitário</span>
+                                <span class="profile-goal">Meta: Moral 100 + Reputação 95</span>
+                                <span class="profile-bonus">+10 Moral inicial · +5 Reputação</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="start-right">
+                    <div class="start-info-card">
+                        <h3>Como Funciona?</h3>
+                        <ul class="how-to-list">
+                            <li><span class="ht-num">01</span><div><strong>Tome Decisões</strong><br>Cada ação custa recursos mas gera impacto nos indicadores.</div></li>
+                            <li><span class="ht-num">02</span><div><strong>Pesquise Tecnologias</strong><br>Invista em P&D para desbloquear ações mais poderosas.</div></li>
+                            <li><span class="ht-num">03</span><div><strong>Lide com Eventos</strong><br>Geadas, fiscalizações, pragas... o inesperado sempre acontece!</div></li>
+                            <li><span class="ht-num">04</span><div><strong>Alcance sua Meta</strong><br>Cada perfil tem objetivos únicos. 12 meses para vencer!</div></li>
+                        </ul>
+                    </div>
+                    <button id="start-button" class="c-btn c-btn--start" disabled>
+                        <span>🚀</span> Iniciar Gestão
+                    </button>
+                </div>
             </div>
-            <button id="start-button" class="c-btn c-btn--start c-btn--full-width">Aceitar o Desafio e Iniciar Gestão!</button>
         </section>
 
-        <section id="game-screen" class="u-hidden">
-            <div id="stats-grid" class="c-stats-grid"></div>
+        <!-- ======================== GAME SCREEN ======================== -->
+        <section id="game-screen" class="screen u-hidden">
 
+            <!-- STATS GRID -->
+            <div class="stats-section">
+                <div class="stats-header">
+                    <span class="stats-title">📊 Painel de Indicadores</span>
+                    <div class="month-indicator">
+                        <span class="month-label">Mês</span>
+                        <span class="month-bar-wrapper">
+                            <span class="month-bar" id="month-progress-bar"></span>
+                        </span>
+                        <span id="month-display" class="month-num">0/12</span>
+                    </div>
+                </div>
+                <div id="stats-grid" class="c-stats-grid"></div>
+            </div>
+
+            <!-- SABIA MENTOR -->
             <aside id="sabia-mentor-ui" class="c-sabia-mentor">
-                <div class="c-sabia-mentor__icon">🦉</div>
+                <div class="sabia-icon-wrap">
+                    <span class="sabia-icon">🦉</span>
+                    <span class="sabia-pulse"></span>
+                </div>
                 <div class="c-sabia-mentor__content">
                     <h4 id="sabia-tip-title">Dica do Professor Sabiá</h4>
-                    <p id="sabia-tip-text">Bem-vindo(a)! Preste atenção nas suas métricas. O equilíbrio é a chave!</p>
+                    <p id="sabia-tip-text">Bem-vindo(a)! Analise seus indicadores com cuidado. O equilíbrio entre lucro e sustentabilidade é a chave!</p>
                 </div>
             </aside>
-            
+
+            <!-- MAIN COLUMNS -->
             <div class="l-columns">
-                <div id="decisions-column"></div>
-                <div id="research-column">
-                    <h4>Pesquisa & Desenvolvimento (P&D)</h4>
+                <div class="column-wrap">
+                    <div class="column-header">
+                        <span class="col-icon">⚡</span> Decisões Estratégicas
+                    </div>
+                    <div id="decisions-column" class="column-body"></div>
+                </div>
+                <div class="column-wrap">
+                    <div class="column-header research-header">
+                        <span class="col-icon">🔬</span> Pesquisa &amp; Desenvolvimento
+                        <span class="rp-display" id="rp-counter">0 P&D</span>
+                    </div>
+                    <div id="research-column" class="column-body"></div>
                 </div>
             </div>
 
-            <div style="margin-top: 30px; text-align: center;">
-                <button id="show-report-button" class="c-btn">Ver Relatório de Desempenho</button>
-                <button id="next-month-button" class="c-btn c-btn--next-month c-btn--full-width">Avançar para Próximo Mês</button>
+            <!-- BOTTOM ACTIONS -->
+            <div class="bottom-actions">
+                <button id="show-report-button" class="c-btn c-btn--report">
+                    <span>📈</span> Relatório de Desempenho
+                </button>
+                <button id="next-month-button" class="c-btn c-btn--next-month">
+                    <span>⏭</span> Avançar Mês
+                </button>
             </div>
 
-            <h4>Log de Eventos</h4>
-            <div id="game-log" class="c-game-log"></div>
+            <!-- LOG -->
+            <div class="log-section">
+                <div class="log-header"><span>📋</span> Log de Eventos</div>
+                <div id="game-log" class="c-game-log"></div>
+            </div>
+
         </section>
 
-        <section id="end-screen" class="u-hidden u-text-center">
-            <h2>Fim do Ciclo de Gestão!</h2>
-            <p>Confira o desempenho final da sua ECOFÁBRICA CONSCIENTE:</p>
-            <div id="final-stats-grid" class="c-stats-grid"></div>
-            <p id="final-message" style="font-size: 1.2em; font-weight: bold;"></p>
-            <button id="restart-button" class="c-btn c-btn--start c-btn--full-width">Iniciar Nova Gestão (Recarregar)</button>
+        <!-- ======================== END SCREEN ======================== -->
+        <section id="end-screen" class="screen u-hidden end-screen">
+            <div class="end-icon">🏭</div>
+            <h2 class="end-title">Fim do Ciclo de Gestão!</h2>
+            <p class="end-desc">Confira o desempenho final da sua EcoFábrica:</p>
+            <div id="final-stats-grid" class="c-stats-grid c-stats-grid--final"></div>
+            <p id="final-message" class="final-message"></p>
+            <button id="restart-button" class="c-btn c-btn--start">
+                <span>🔄</span> Nova Gestão
+            </button>
         </section>
 
+        <!-- FOOTER CREDITS -->
         <footer class="l-credits-footer">
-            <p><strong>Desenvolvimento do Conceito e Jogo Base:</strong> Kaio Daniel de Souza da Costa (1º A), Lucas Raczenski Marques (2º A), Murilo Silvestre Bernardes (2º A), Marielly (2º A), Stefany (2º A), Lucas Gabriel Kruger Avelino (2º A)</p>
-            <p>C.E. PROFESSOR IVONE SOARES CASTANHARO | <strong>Professor Monitor Orientador:</strong> Felipe Oliveira TI</p>
+            <p><strong>Desenvolvimento:</strong> Kaio Daniel · Lucas Raczenski · Murilo Silvestre · Marielly · Stefany · Lucas Kruger</p>
+            <p>C.E. PROFESSOR IVONE SOARES CASTANHARO &nbsp;|&nbsp; <strong>Orientador:</strong> Felipe Oliveira TI</p>
         </footer>
     </main>
 
+    <!-- ======================== MODALS ======================== -->
+
+    <!-- Report Modal -->
     <div id="report-modal" class="c-modal" role="dialog" aria-modal="true" aria-labelledby="report-modal-title">
         <div class="c-modal__content">
-            <span class="c-modal__close-btn" data-modal-id="report-modal">&times;</span>
-            <h2 id="report-modal-title">Relatório de Desempenho</h2>
-            <p>Evolução mensal das suas principais métricas:</p>
-            <div id="chart-container" class="c-chart-container"></div>
-            <div style="display: flex; justify-content: space-around; margin-top: 10px; font-size: 0.9em;">
-                <span><span style="color:var(--color-success)">■</span> Orçamento</span>
-                <span><span style="color:var(--color-primary)">■</span> Sustentabilidade</span>
-                <span><span style="color:var(--color-danger)">■</span> Desperdício</span>
+            <button class="c-modal__close-btn" data-modal-id="report-modal" aria-label="Fechar">&times;</button>
+            <h2 id="report-modal-title"><span>📈</span> Relatório de Desempenho</h2>
+            <p class="modal-desc">Evolução mensal das principais métricas:</p>
+            <div class="chart-legend">
+                <span><i class="legend-dot" style="--c:var(--color-success)"></i> Orçamento</span>
+                <span><i class="legend-dot" style="--c:var(--color-primary)"></i> Sustentabilidade</span>
+                <span><i class="legend-dot" style="--c:var(--color-danger)"></i> Desperdício</span>
             </div>
+            <div id="chart-container" class="c-chart-container"></div>
         </div>
     </div>
-    
+
+    <!-- Event Modal -->
     <div id="event-modal" class="c-modal" role="dialog" aria-modal="true" aria-labelledby="event-modal-title">
         <div class="c-modal__content c-modal__content--event">
-            <span class="c-modal__close-btn u-hidden">&times;</span> <h2 id="event-modal-title">Acontecimento!</h2>
-            <p id="event-modal-message">Uma situação inesperada ocorreu!</p>
-            <div id="event-modal-choices"></div>
+            <div class="event-alert-banner">⚠ EVENTO INESPERADO</div>
+            <h2 id="event-modal-title">Acontecimento!</h2>
+            <p id="event-modal-message" class="modal-desc"></p>
+            <div id="event-modal-choices" class="event-choices"></div>
         </div>
     </div>
-    
+
+    <!-- Quiz Modal -->
     <div id="sabia-quiz-modal" class="c-modal" role="dialog" aria-modal="true" aria-labelledby="sabia-quiz-title">
         <div class="c-modal__content c-modal__content--sabia">
-            <span class="c-modal__close-btn" data-modal-id="sabia-quiz-modal">&times;</span>
-            <h2 id="sabia-quiz-title">🦉 Pergunta do Professor Sabiá!</h2>
-            <p>Vamos testar seu conhecimento de código, jovem aprendiz!</p>
-            <p id="sabia-quiz-question" style="font-weight: 700; font-size: 1.1em;"></p>
-            <div id="sabia-quiz-choices"></div>
-            <p id="sabia-quiz-feedback" style="margin-top: 15px;"></p>
+            <button class="c-modal__close-btn" data-modal-id="sabia-quiz-modal" aria-label="Fechar">&times;</button>
+            <div class="quiz-header">
+                <span class="quiz-owl">🦉</span>
+                <div>
+                    <h2 id="sabia-quiz-title">Pergunta do Professor Sabiá!</h2>
+                    <p class="modal-desc">Teste seu conhecimento e ganhe bônus de P&D!</p>
+                </div>
+            </div>
+            <p id="sabia-quiz-question" class="quiz-question"></p>
+            <div id="sabia-quiz-choices" class="quiz-choices"></div>
+            <div id="sabia-quiz-feedback" class="quiz-feedback"></div>
         </div>
     </div>
 
